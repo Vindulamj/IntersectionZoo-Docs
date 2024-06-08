@@ -1,6 +1,6 @@
 .. image:: image/logo.png
     :alt: IntersectionZoo
-    :scale: 70%
+    :scale: 50%
 
 
 
