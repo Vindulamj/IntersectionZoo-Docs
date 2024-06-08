@@ -1,12 +1,11 @@
-.. image:: image/logo.png
-    :alt: IntersectionZoo
-    :scale: 50%
-
-
-
 
 Welcome to IntersectionZoo
 ===================================
+
+
+.. image:: image/logo.png
+    :alt: IntersectionZoo
+    :scale: 50%
 
 
 IntersectionZoo is a comprehensive benchmarking suite for multi-agent contextual reinforcement learning, specifically focused on eco-driving applications. Built using real-world data, it offers a flexible and user-friendly platform for developing and comparing contextual reinforcement learning algorithms.
