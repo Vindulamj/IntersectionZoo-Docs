@@ -1,9 +1,9 @@
 # Configuration file for the Sphinx documentation builder.
 # -- Project information
 
-project = 'Greenwave'
-copyright = '2024, Greenwave'
-author = 'Vindula Jayawardana, Baptiste Freydt, Ao Qu, Zhongxia Yan, Cathy Wu'
+project = 'IntersectionZoo'
+copyright = '2024, IntersectionZoo'
+author = 'Vindula Jayawardana, Baptiste Freydt, Ao Qu, Cameron Hickert, Zhongxia Yan, Cathy Wu'
 
 release = '0.1'
 version = '0.1.0'
@@ -34,4 +34,4 @@ html_theme = 'sphinx_rtd_theme'
 epub_show_urls = 'footnote'
 
 
-html_logo = "./image/greenwave.png"
+html_logo = "./image/logo.png"
