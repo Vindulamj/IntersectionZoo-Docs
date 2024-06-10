@@ -11,9 +11,8 @@ Welcome to IntersectionZoo
 IntersectionZoo is a cooperative eco-driving-based multi-agent reinforcement learning environment for benchmarking contextual reinforcement 
 learning algorithms to assess their generalization capabilities. Additionally, it also aims to advance eco-driving research by providing standardized environments for benchmarking eco-driving algorithms.
 
-.. raw:: html
-
-   <iframe width="560" height="315" src="image/intro_movie.mov" frameborder="0"></iframe>
+.. image:: image/intro_movie.gif
+    :alt: Introductory simulation
 
 
 Why IntersectionZoo?
