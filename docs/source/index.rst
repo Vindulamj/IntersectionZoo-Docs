@@ -8,34 +8,40 @@ Welcome to IntersectionZoo
     :scale: 50%
 
 
-IntersectionZoo is a comprehensive benchmarking suite for multi-agent contextual reinforcement learning, specifically focused on eco-driving applications. Built using real-world data, it offers a flexible and user-friendly platform for developing and comparing contextual reinforcement learning algorithms.
-
-.. note::
-
-   This project is under active development.
+IntersectionZoo is a cooperative eco-driving-based multi-agent reinforcement learning environment for benchmarking contextual reinforcement 
+learning algorithms to assess their generalization capabilities. Additionally, it also aims to advance eco-driving research by providing standardized environments for benchmarking eco-driving algorithms.
 
 
 Why IntersectionZoo?
-------------
+--------------------
 
-Our motivation for developing IntersectionZoo are two fold. 
+Despite the success of multi-agent reinforcement learning (RL) in simulated applications, its success in real-world applications has been rather limited. 
+A key challenge lies in making multi-agent RL generalize across problem variations, a common requirement in many real-world problems. 
+Contextual reinforcement learning (CRL) formalizes learning policies that generalize across problem variations. 
+However, the lack of standardized benchmarks for multi-agent CRL that are based on real-world applications and also capture the open challenges of real-world problems that affect generalization (e.g., partial observability and multiple competing objectives) has hindered progress. 
+To bridge this gap, we introduce IntersectionZoo, a comprehensive benchmark suite for assessing multi-agent CRL algorithms through the real-world application of cooperative eco-driving in urban road networks. 
+Eco-driving aims to control a fleet of vehicles to reduce fleet-wise emissions and encodes many of the open challenges in real-world problems. IntersectionZoo is built on data-informed simulations of 16,334 signalized intersections derived from 10 major US cities, modeled in an industry-standard microscopic traffic simulator. 
+By modeling factors affecting vehicular exhaust emissions (e.g., temperature, humidity), IntersectionZoo provides one million traffic scenarios encoded as Contextual MArkov Decision Processes for assesing CRL algoriths. 
 
-From reinforcement learning community point of view: While Reinforcement Learning (RL) has shown considerable progress in tackling increasingly complex tasks, 
-many RL algorithms in multi-agent settings still struggle with even minor environmental changes, hindering their real-world applicability. 
-Despite ongoing efforts to address this challenge, the lack of real-world grounded benchmark problems impedes fair, reliable, and reproducible comparisons of different approaches. 
-To fill this gap, in IntersectionZoo, we provide a million traffic scenarios stemming at signalized intersections 
-in which the goal is to control a fleet of vehicles to achieve a fleet-level emission reduction objecvtive. 
-IntersectionZoo encapsulates these scenarios in their digital twins format and interfaces them as a contextual Markov Decision Process 
-to study robustness and generalization as a contextual reinforcement learning problem.
-
-From inteligent transportation systems community point of view: While many studies have reported algorithms for eco-driving (both multi-agent and single-agent formulations),
-we increasingly see the need for a benchmark suite that can be used to compare these algorithms in a fair and reproducible manner. Moreover, we observe that many studies hand-pcik the scenarios
-for their experiments, which may not be representative of the real-world scenarios and could lead to evaluation overfitting. IntersectionZoo provides a million traffic scenarios stemming at signalized intersections
-and that are grounded in real-world data. We believe a IntersectionZoo benchmark suite will standardize the design and evaluation of eco-driving algorithms.
+Beyond supporting benchmarking multi-agent CRL algorithms, IntersectionZoo also presents an opportunity to improve cooperative eco-driving. 
+Eco-driving is well known for its potential impact on climate change mitigation goals. The automotive industry actively researches robust eco-driving controllers. 
+Therefore, introducing IntersectionZoo, we also aim to engage the machine-learning community in solving the eco-driving problem.
 
 
 Check out the :doc:`usage` section for further information, including
 how to :ref:`installation` the project.
+
+
+Publications and Citation
+-------------------------
+
+If you use IntersectionZoo in your work, you are highly encouraged to cite our paper:
+
+V. Jayawardana, B. Freydt, A. Qu, C. Hickert, Z. Yan, C. Wu, "IntersectionZoo: Eco-driving for Benchmarking Multi-Agent Contextual Reinforcement Learning", 2024.
+
+.. note::
+
+   This paper is under review. We will update the citation information once the paper is published.
 
 
 Contents
