@@ -34,18 +34,12 @@ To override the default configurations, pass a python dictionary with the argume
    python code/ppo_training.py --dir <exp_dir> --kwargs <python dictionary with arguments to override the config in code/ppo_training.py>
 
 
-Example:
-
-.. code-block:: console
-
-   python code/policy_evaluation.py --dir <exp_dir>" 
-
 Similarly, to evaluate a trained agent on Salt Lake City intersections, run the following command. ``<exp_dir>`` should point to a directory where all training artifacts are stored for the checkpoints to be retrieved.
 Check `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section for more details on evaluation configurations inclduing how to change the intersection dataset.
 
 .. code-block:: console
 
-   python code/evaluate.py --dir <exp_dir>
+   python code/policy_evaluation.py --dir <exp_dir>
 
 
 IntersectionZoo uses SUMO microscopic traffic simualator for simualtions. Run the following command to visulize the trained agents on a given intersection dataset with SUMO GUI. 
