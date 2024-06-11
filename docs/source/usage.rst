@@ -6,38 +6,42 @@ Usage
 Installation
 ------------
 
-1. Install SUMO (ideally 1.12, but 1.13 seems to work as well), and make sure that the env var SUMO_HOME is set.
-2. Create a conda env or venv with python 3.10
-3. From that environemt install dependencies using following command:
+1. Install `SUMO <https://sumo.dlr.de/docs/Installing/index.html>`_  (we have tested IntersectionZoo with SUMO 1.12), and make sure that the environment variable ``SUMO_HOME`` is set as per the installation instructions.
+2. Create and activate `conda <https://docs.conda.io/en/latest>` environment or `venv <https://docs.python.org/3/library/venv.html>` with python 3.10. 
+3. Clone the IntersectionZoo `repository <https://github.com/mit-wu-lab/IntersectionZoo/>` and from the root of the repo, install the dependencies using the following command.
 
 .. code-block:: console
 
    pip install -r requirements.txt
 
-Run Instructions
-----------------
+Runnig IntersectionZoo
+-----------------------
 
-From the root of the repo and using the correct venv/ conda env, run the following command to train the agents. Check ``code/train.py`` for more options.
-
-.. code-block:: console
-
-   python code/train.py --dir <exp_dir>
+From the root of IntersectionZoo repository, run the following command to train an example multi-task PPO the agent on Salt Lake City intersections. 
+Check `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>` section for more details on training configurations inclduing how to change the intersection dataset.
 
 .. code-block:: console
 
-   python code/train.py --dir <exp_dir> --kwargs <python dict with arguments to override the config in main.py>
+   python code/ppo_training.py --dir <exp_dir>
 
-Where ``<exp_dir>`` is where all the training artifacts will be stored and/or the checkpoints will be retrieved (to evaluate or restart the training). 
+Where ``<exp_dir>`` is where all the training artifacts will be stored and/or the checkpoints will be retrieved (to evaluate or restart the training).
 It will be created if it doesn't exist.
+
+To override the default configurations, pass a python dictionary with the arguments to override the config in main.py.
+
+.. code-block:: console
+
+   python code/ppo_training.py --dir <exp_dir> --kwargs <python dictionary with arguments to override the config in code/ppo_training.py>
+
 
 Example:
 
 .. code-block:: console
 
-   python code/train.py --dir wd/test --kwargs "{'wandb_proj':'scenario-env'}" 
+   python code/policy_evaluation.py --dir <exp_dir>" 
 
-From the root of the repo and the correct venv/ conda env, run the following command to evaluate the trained agents on a given intersection dataset. 
-Check ``code/evaluate.py`` for more options. Note that ``<dir>`` should point to the same directory used for training.
+Similarly, to evaluate a trained agent on Salt Lake City intersections, run the following command. ``<exp_dir>`` should point to a directory where all training artifacts are stored for the checkpoints to be retrieved.
+Check `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>` section for more details on evaluation configurations inclduing how to change the intersection dataset.
 
 .. code-block:: console
 
@@ -46,11 +50,9 @@ Check ``code/evaluate.py`` for more options. Note that ``<dir>`` should point to
 Visualization
 -------------
 
-From the root of the repo and the correct venv/ conda env, run the following command to visulize the trained agents on a given intersection dataset. 
-Check ``code/visualize.py`` for more options. Note that ``<dir>`` should point to the same directory used for training.
+IntersectionZoo uses SUMO microscopic traffic simualator for simualtions. Run the following command to visulize the trained agents on a given intersection dataset with SUMO GUI. 
+Check `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>` section for more details on evaluation configurations inclduing how to change the intersection dataset.
 
 .. code-block:: console
 
    python code/visualize.py --dir <exp_dir>
-
-It is possible to visualize any SUMO simulation by setting the ``visualize_sumo`` config to True in the env config.
