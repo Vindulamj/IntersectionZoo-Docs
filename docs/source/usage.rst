@@ -47,8 +47,6 @@ Check `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial
 
    python code/evaluate.py --dir <exp_dir>
 
-Visualization
--------------
 
 IntersectionZoo uses SUMO microscopic traffic simualator for simualtions. Run the following command to visulize the trained agents on a given intersection dataset with SUMO GUI. 
 Check `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>` section for more details on evaluation configurations inclduing how to change the intersection dataset.
