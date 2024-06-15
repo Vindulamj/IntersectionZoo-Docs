@@ -8,7 +8,18 @@ Main concepts
 Cooperative Eco-driving
 -----------------------
 
-The default objective of cooperative eco-driving at individual signalized intersections is to minimize the total exhaust emissions of a 
+In a mixed traffic environment, the behavior of human-driven vehicles (HDVs) can be influenced by the behavior of controlled vehicles (CVs). Here, 
+the controlled vehicles can be autonomous vehicles or even vehicles with adavanced driver assistance systems (ADAS).
+In the following figure, we show an example of cooperative eco-driving at signalized intersections. 
+CVs implicitly control HDVs through car-following dynamics and also form locally cooperative teams for better system control 
+(by controlling the oppotunities of HDVs to overake CVs). In IntersectionZoo, we focus on the problem of cooperative eco-driving at signalized intersections by 
+controlling the longitudinal accelerations of CVs.
+
+.. image:: image/eco-driving.png
+    :alt: IntersectionZoo
+    :scale: 50%
+
+Concreately, the default objective of cooperative eco-driving at individual signalized intersections is to minimize the total exhaust emissions of a 
 fleet of vehicles consisting of both Controlled Vehicles (CVs) and Human Driven Vehicles (HDVs) 
 while having a minimal impact on individual travel time of vehicles. At a given time :math:`t`, the number of CVs is :math:`k_{CV}^t`, 
 and HDVs is :math:`k_{HDV}^t` such that :math:`k_{CV}^t + k_{HDV}^t = n^t` where :math:`n^t` is the total number of vehicles in the fleet. 
@@ -19,8 +30,8 @@ Then, we control the longitudinal accelerations of all CVs decentrally using a l
    \min J = \sum_{i=1}^{n} \sum_{t=0}^{T_i} E\left(a_i(t), v_i(t)\right) + \lambda T_i.
 
 
-Here, :math:`T_i` denotes the travel time of vehicle :math:`i` and time :math:`t` is a discretized time with increments of :math:`\delta` (we use 0.5 seconds).
-The vehicular exhaust emission function is denoted by :math:`E(\cdot)`, which takes speed :math:`v_i(t)` and acceleration :math:`a_i(t)` 
+Here, :math:`T_i` denotes the travel time of vehicle :math:`i` and time :math:`t` is a discretized time with increments of :math:`\delta` 
+(we use 0.5 seconds).The vehicular exhaust emission function is denoted by :math:`E(\cdot)`, which takes speed :math:`v_i(t)` and acceleration :math:`a_i(t)` 
 of vehicle :math:`i` at time :math:`t` and outputs a vehicular emission amount (usually the amount of carbon dioxide). :math:`\lambda` 
 is the trade-off hyperparameter. We seek to optimize :math:`J` subject to hard constraints of ensuring vehicle safety, 
 connectivity via vehicle-to-vehicle and vehicle-to-traffic signal communication, and soft constraints of vehicle kinematics, 
