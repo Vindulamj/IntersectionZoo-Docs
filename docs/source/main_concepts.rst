@@ -15,8 +15,8 @@ CVs implicitly control HDVs through car-following dynamics and also form locally
 (by controlling the oppotunities of HDVs to overake CVs). In IntersectionZoo, we focus on the problem of cooperative eco-driving at signalized intersections by 
 controlling the longitudinal accelerations of CVs.
 
-.. image:: image/eco-driving.png
-    :alt: IntersectionZoo
+.. image:: image/eco-drive.png
+    :alt: Eco-driving Example
     :scale: 50%
 
 Concreately, the default objective of cooperative eco-driving at individual signalized intersections is to minimize the total exhaust emissions of a 
