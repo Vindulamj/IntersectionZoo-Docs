@@ -49,20 +49,20 @@ regulating intersection throughput to prevent traffic spill-back due to possible
 flow is not at saturation, allowing for reasonable throughput improvements. By default, we adopt the same modeling assumption in intersectionZoo. However, prefered 
 users can choose to regulate throughput according to their methods or estimate potential for improvement in throughput at each intersection. 
 
-Then, given a city-scale traffic network, we can optimize the eco-driving policy at each intersection separately. However, each signalized intersection yeilds multiple 
+Then, given a city-scale traffic network, we can model each intersection separately. However, each signalized intersection yeilds multiple 
 traffic scenarios due to the factors such as weather, time of day, and traffic demand and eco-driving adoption level. 
-Therefore, we need to optimize the eco-driving policy for each scenario. 
+Therefore, we need to optimize the eco-driving policy for across all these scenarios. 
 
 
 Consider a city comprised of traffic scenarios :math:`\Phi` where :math:`|\Phi|` is large (e.g., millions of traffic scenarios). 
-Let :math:`\pi^e \coloneqq (\pi^e_{\phi})_{\phi \in \Phi}` denote the set of eco-driving control laws. 
-Similarly, let :math:`\pi^b \coloneqq (\pi^b_{\phi})_{\phi \in \Phi}` denote the baseline (status quo driving). 
+Let :math:`\pi^e :=  (\pi^e_{\phi})_{\phi \in \Phi}` denote the set of eco-driving control laws. 
+Similarly, let :math:`\pi^b :=  (\pi^b_{\phi})_{\phi \in \Phi}` denote the baseline (status quo driving). 
 Let :math:`f(\pi, \phi)` denote a function that captures the CO\ :sub:`2` emission for the scenario :math:`\phi` under the control law :math:`\pi`. 
 We then define the *regional eco-driving effectiveness* as,
 
 .. math::
 
-   E_{\Phi}(\pi^e, \pi^b) \coloneqq 1 - \frac{\mathbb{E}_{\phi \in \Phi} [f(\pi^e_{\phi}, \phi)]}{\mathbb{E}_{\phi \in \Phi} [f(\pi^b_{\phi}, \phi)]}
+   E_{\Phi}(\pi^e, \pi^b) := 1 - \frac{\mathbb{E}_{\phi \in \Phi} [f(\pi^e_{\phi}, \phi)]}{\mathbb{E}_{\phi \in \Phi} [f(\pi^b_{\phi}, \phi)]}
 
 We thus seek to solve the *regional eco-driving problem* for the control laws :math:`\pi^e` such that,
 
