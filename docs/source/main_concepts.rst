@@ -10,14 +10,17 @@ Cooperative Eco-driving
 
 In a mixed traffic environment, the behavior of human-driven vehicles (HDVs) can be influenced by the behavior of controlled vehicles (CVs). Here, 
 the controlled vehicles can be autonomous vehicles or even vehicles with adavanced driver assistance systems (ADAS).
-In the following figure, we show an example of cooperative eco-driving at signalized intersections. 
-CVs implicitly control HDVs through car-following dynamics and also form locally cooperative teams for better system control 
+In the following figure, we show an example of cooperative eco-driving at signalized intersections where CVs are controlled to 
+minimize the total exhaust emissions of the fleet (both CVs and HDVs) while minimizing the impact on the travel time of each vehicle. 
+While CVs are controllable by some defined eco-driving strategy, HDVs are driven by humans and can not be controlled. However, CVs implicitly control HDVs 
+through car-following dynamics and by forming locally cooperative teams for better system control 
 (by controlling the oppotunities of HDVs to overake CVs). In IntersectionZoo, we focus on the problem of cooperative eco-driving at signalized intersections by 
-controlling the longitudinal accelerations of CVs.
+controlling the longitudinal accelerations of CVs. Lane changing of both CVs and HDVs are controlled by rule-based defualt models of SUMO traffic simulator. 
 
 .. image:: image/eco-drive.png
     :alt: Eco-driving Example
-    :scale: 50%
+    :scale: 30%
+    :align: center
 
 Concreately, the default objective of cooperative eco-driving at individual signalized intersections is to minimize the total exhaust emissions of a 
 fleet of vehicles consisting of both Controlled Vehicles (CVs) and Human Driven Vehicles (HDVs) 
@@ -36,6 +39,46 @@ of vehicle :math:`i` at time :math:`t` and outputs a vehicular emission amount (
 is the trade-off hyperparameter. We seek to optimize :math:`J` subject to hard constraints of ensuring vehicle safety, 
 connectivity via vehicle-to-vehicle and vehicle-to-traffic signal communication, and soft constraints of vehicle kinematics, 
 control realism, traffic safety at the fleet level (e.g., minimum time to collision across all vehicles), and passenger comfort.
+
+Cooperative Eco-driving at City Scale
+-------------------------------------
+
+Optimizing eco-driving across a full-traffic network is ideal but is impractical in large cities like Los Angeles, with nearly 5000 signalized intersections, 
+and remains an open optimization challenge. A common approach is to decompose the network into individual intersections for separate optimizations while 
+regulating intersection throughput to prevent traffic spill-back due to possible increased throughput. Therefore, it is often assumed that vehicle 
+flow is not at saturation, allowing for reasonable throughput improvements. By default, we adopt the same modeling assumption in intersectionZoo. However, prefered 
+users can choose to regulate throughput according to their methods or estimate potential for improvement in throughput at each intersection. 
+
+Then, given a city-scale traffic network, we can optimize the eco-driving policy at each intersection separately. However, each signalized intersection yeilds multiple 
+traffic scenarios due to the factors such as weather, time of day, and traffic demand and eco-driving adoption level. 
+Therefore, we need to optimize the eco-driving policy for each scenario. 
+
+
+Consider a city comprised of traffic scenarios :math:`\Phi` where :math:`|\Phi|` is large (e.g., millions of traffic scenarios). 
+Let :math:`\pi^e \coloneqq (\pi^e_{\phi})_{\phi \in \Phi}` denote the set of eco-driving control laws. 
+Similarly, let :math:`\pi^b \coloneqq (\pi^b_{\phi})_{\phi \in \Phi}` denote the baseline (status quo driving). 
+Let :math:`f(\pi, \phi)` denote a function that captures the CO\ :sub:`2` emission for the scenario :math:`\phi` under the control law :math:`\pi`. 
+We then define the *regional eco-driving effectiveness* as,
+
+.. math::
+
+   E_{\Phi}(\pi^e, \pi^b) \coloneqq 1 - \frac{\mathbb{E}_{\phi \in \Phi} [f(\pi^e_{\phi}, \phi)]}{\mathbb{E}_{\phi \in \Phi} [f(\pi^b_{\phi}, \phi)]}
+
+We thus seek to solve the *regional eco-driving problem* for the control laws :math:`\pi^e` such that,
+
+Find
+
+.. math::
+
+   \pi^e = \arg\max_{\pi} E_{\Phi}(\pi, \pi^b)
+
+subject to,
+
+.. math::
+
+   n_{\phi}^{e} \geq n_{\phi}^{b} \quad \forall \; \phi \in \Phi
+
+where :math:`n_{\phi}^{e}` and :math:`n_{\phi}^{b}` denote the intersection throughput for scenario :math:`\phi` under the control laws of :math:`\pi^e_{\phi}` and :math:`\pi^b_{\phi}`, respectively.
 
 
 RLlib
