@@ -53,8 +53,8 @@ Contents
 .. toctree::
 
    usage
-   main_concepts_eco_driving
-   intersection_zoo_build
+   main_concepts
+   intersectionzoo_build
    rllib_integration
    Extensions
    benchmarking
