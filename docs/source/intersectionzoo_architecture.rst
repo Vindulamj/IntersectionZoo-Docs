@@ -186,8 +186,7 @@ Descriptions of evaluation metrics.
 4. Average intersection throughput: The average intersection throughput is measured in the 
    number of vehicles that cross the intersection during an episode. \
 5. Average stopping time of vehicles: The average time a vehicle idle (with zero speed) per episode. 
-   Lower idling is often associated with lower emissions as idling emits CO2 (as the engine of the vehicle is still running)
-    without any effective work. 
+   Lower idling is often associated with lower emissions as idling emits CO2 (as the engine of the vehicle is still running) without any effective work. 
  
 
 User Configuration
