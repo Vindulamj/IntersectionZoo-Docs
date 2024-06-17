@@ -10,7 +10,7 @@ If you have any questions, comments, or suggestions, please contact Vindula Jaya
 
 .. image:: image/team.png
     :alt: IntersectionZoo team
-    :scale: 30%
+    :scale: 70%
     :align: center
 
 
