@@ -1,4 +1,4 @@
-.. _intersection_zoo_build:
+.. _intersectionzoo_build:
 
 Main concepts
 =============
