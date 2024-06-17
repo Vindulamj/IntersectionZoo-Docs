@@ -19,7 +19,7 @@ In building IntersectionZoo, three main logical layers are used to abstract func
 
 .. image:: image/architecture.png
     :alt: IntersectionZoo Architecture
-    :scale: 42%
+    :scale: 37%
     :align: center
 
 \
@@ -177,7 +177,7 @@ Evaluation Metrics
 ^^^^^^^^^^^^^^^^^^
 
 Descriptions of evaluation metrics. 
-1. Average reward: Average reward over episodes. A shared reward based on the vehicle fleet is used for each agent.
+1. Average reward: Average reward over episodes. A shared reward based on the vehicle fleet is used for each agent. 
    Reward encourages lower emissions, higher speeds, and less stopping and idling. \
 2. Average approach emission: We measure vehicle exhaust CO2 emissions per vehicle per episode and per time step, 
    but only when a vehicle approaches an intersection. This approach prevents double counting emissions, which 
