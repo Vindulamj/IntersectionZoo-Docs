@@ -92,7 +92,8 @@ The factors considered and data sources used for modeling them is given in the f
      - Internal combusion engines and electric engines as user prefered.
      - 
 
-**Intersection feature distribution** \
+Intersection feature distribution
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 In the following figure, we show the distribution of the intersection features across the 10 cities. 
@@ -114,7 +115,8 @@ Once traffic scenarios are modeled, the **CMDP modeling layer** is used to conta
 CMDP is used to model problem variations. In IntersectionZoo, each city is modeled as a CMDP with each traffic scenario stemming from the city as a problem variation. In a CMDP, each problem
 variation is an MDP defined by a problem variation context and called a context-MDP. In eco-driving, those context-MDPs are defined by the following state, action and reward functions and formulate as a multi-agent control problem.
 
-**Context-MDP Definition** \
+Context-MDP Definition
+^^^^^^^^^^^^^^^^^^^^^^
 
 - **State**: The design of the observed state of a vehicle is mainly based on the capabilities of existing sensor technologies. 
   The observed state includes the speed of the ego-vehicle, relative distance to the traffic signal, traffic signal state (red, green, or yellow) 
@@ -162,7 +164,8 @@ is the relative distance and :math:`\Delta v` is the relative velocity. Both dis
 the leading vehicle of the ego-vehicle. In using TTC for fleet-level safety, we take the minimum TTC value across all vehicles at a given time step and share it with all vehicles.
 
 
-**Emission Models** \
+Emission Models
+^^^^^^^^^^^^^^^
 
 A key requirement for capturing the effect of traffic scenarios on vehicle exhaust emission is a rich emission function.
 For this prupose, IntersectionZoo comes with an intergrated `NeuralMOVES <https://www.climatechange.ai/papers/neurips2022/90>`_, a suite of comprehensive and fast neural emission models 
@@ -170,8 +173,13 @@ that replicate the industry-standard `Motor Vehicle Emission Simulator (MOVES) <
 Intereted users can find the full list of vehicle emission models in the `NeuralMOVES <https://www.climatechange.ai/papers/neurips2022/90>`_ paper.
 
 
-RLlib
------
+User configuration layer
+------------------------
 
-IntersectionZoo is intergrated with `RLlib <https://docs.ray.io/en/latest/rllib/index.html>`_, a scalable reinforcement learning library that provides a unified API for testing and 
+In **user configuration layer**, we provide users the flexibility to configure their experimental setup. 
+
+RLLib
+^^^^^
+By defualt, IntersectionZoo is intergrated with 
+`RLlib <https://docs.ray.io/en/latest/rllib/index.html>`_, a scalable reinforcement learning library that provides a unified API for testing and 
 benchmarking reinforcement learning algorithms. For more details on how to use IntersectionZoo with RLlib, please refer to the `RLlib intergration <https://intersectionzoo-docs.readthedocs.io/en/latest/rllib_integration.html>`_ section.
