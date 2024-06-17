@@ -56,8 +56,7 @@ Contents
    main_concepts
    intersectionzoo_build
    rllib_integration
-   extensions
    benchmarking
-   training_eval
+   extensions
    tutorial
    contact

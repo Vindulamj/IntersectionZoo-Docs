@@ -1,7 +1,7 @@
 .. _intersectionzoo_build:
 
-Main concepts
-=============
+IntersectionZoo Architecture
+============================
 
 .. _rllib:
 

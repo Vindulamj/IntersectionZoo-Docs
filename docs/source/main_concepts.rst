@@ -85,7 +85,7 @@ Additional Reads
 
 An interetsed reader is encouraged to read the following papers for more details on eco-driving:
 
-- **[1]**: *Mintsis, Evangelos, Eleni I. Vlahogianni, and Evangelos Mitsakis. "Dynamic eco-driving near signalized intersections: Systematic review and future research directions." Journal of Transportation Engineering, Part A: Systems 146, no. 4 (2020): 04020018.*
-- **[2]**: *Huang, Yuhan, Elvin CY Ng, John L. Zhou, Nic C. Surawski, Edward FC Chan, and Guang Hong. "Eco-driving technology for sustainable road transport: A review." Renewable and Sustainable Energy Reviews 93 (2018): 596-609.*
-- **[3]**: *Xu, Nan, Xiaohan Li, Qiao Liu, and Di Zhao. "An overview of eco-driving theory, capability evaluation, and training applications." Sensors 21, no. 19 (2021): 6547.*
-- **[4]**: *Barkenbus, Jack N. "Eco-driving: An overlooked climate change initiative." Energy policy 38, no. 2 (2010): 762-769.*
+**[1]**: *Mintsis, Evangelos, Eleni I. Vlahogianni, and Evangelos Mitsakis. "Dynamic eco-driving near signalized intersections: Systematic review and future research directions." Journal of Transportation Engineering, Part A: Systems 146, no. 4 (2020): 04020018.*
+**[2]**: *Huang, Yuhan, Elvin CY Ng, John L. Zhou, Nic C. Surawski, Edward FC Chan, and Guang Hong. "Eco-driving technology for sustainable road transport: A review." Renewable and Sustainable Energy Reviews 93 (2018): 596-609.*
+**[3]**: *Xu, Nan, Xiaohan Li, Qiao Liu, and Di Zhao. "An overview of eco-driving theory, capability evaluation, and training applications." Sensors 21, no. 19 (2021): 6547.*
+**[4]**: *Barkenbus, Jack N. "Eco-driving: An overlooked climate change initiative." Energy policy 38, no. 2 (2010): 762-769.*
