@@ -11,7 +11,7 @@ IntersectionZoo builds more than one million data-driven traffic scenarios aroun
 
 .. image:: image/cities.png
     :alt: Cities
-    :scale: 30%
+    :scale: 35%
     :align: center
 
 
@@ -22,7 +22,7 @@ In building IntersectionZoo, three main logical layers are used to abstract func
     :scale: 42%
     :align: center
 
-<br>
+\
 
 In the **traffic scenario modeling layer**, we first build data-driven simulation environments of signalized intersections and then use them to build traffic scenarios at those
 intersections. Concretely, an intersection is first defined by factors such as lane lengths, lane counts, road grades, turn lane configuration, and speed limit of each approach. 
@@ -56,10 +56,13 @@ The factors we consider and data sources we use for modeling each factor is give
      - Taken from `Precision Traffic and Safety <https://www.precisiontrafficsafety.com/solutions/traffic-studies/>`_. 
    * - Vehicle arrival process
      - Realistic vehicle arrival process based on nearby intersections
-     - For every intersection, a set of default nearby intersections <br> are added as a way of achieving realistic vehicle arrival <br> processes subjected to nearby traffic signal dynamics.
+     - For every intersection, a set of default nearby intersections \
+       are added as a way of achieving realistic vehicle arrival \ 
+       processes subjected to nearby traffic signal dynamics.
    * - Traffic Signal Timing
      - Optimal traffic signal plan
-     - Exhasutively search through `Fixed Time <https://nacto.org/publication/urban-street-design-guide/intersection-design-elements/traffic-signals/fixed-vs-actuated-signalization/>`_ traffic signal plans to find the optimal plan for each intersection.
+     - Exhasutively search through `Fixed Time <https://nacto.org/publication/urban-street-design-guide/intersection-design-elements/traffic-signals/fixed-vs-actuated-signalization/>`_ traffic signal plans \
+       to find the optimal plan for each intersection.
    * - Vehicle age distribution
      - MOVES database
      - Taken from open database of `MOVES <https://www.epa.gov/moves>`_.
@@ -71,10 +74,14 @@ The factors we consider and data sources we use for modeling each factor is give
      - Taken from open database of `MOVES <https://www.epa.gov/moves>`_.
    * - Temperature and humidity
      - US National Centers for Environmental Information
-     - All processes data are available here `MOVES <https://docs.google.com/spreadsheets/d/1IxSaxkgkE9tA21u5CtSUVWJPa15QfLHT/edit?usp=sharing&ouid=111770128718724110720&rtpof=true&sd=true>`_ for each city under each season (Fall, Spring, Summer and Winter) and under different weather conditions (sunny, rain, snow).
+     - All processes data are available here `MOVES <https://docs.google.com/spreadsheets/d/1IxSaxkgkE9tA21u5CtSUVWJPa15QfLHT/edit?usp=sharing&ouid=111770128718724110720&rtpof=true&sd=true>`_ \
+       for each city under each season (Fall, Spring, Summer and Winter) \
+       and under different weather conditions (sunny, rain, snow).
    * - Human driver models
      - Intelligent Driver Model (IDM) callibrated with real-world data.
-     - Calibration method is adopted from `Zhang et al. (2022) <https://arxiv.org/abs/2210.03571>`_ and the data is taken from `CitySim dataset <https://github.com/UCF-SST-Lab/UCF-SST-CitySim1-Dataset>`_ released under Apacahe 2.0 License.
+     - Calibration method is adopted from `Zhang et al. (2022) <https://arxiv.org/abs/2210.03571>`_ and \
+       the data is taken from `CitySim dataset <https://github.com/UCF-SST-Lab/UCF-SST-CitySim1-Dataset>`_ \
+       released under Apacahe 2.0 License.
    * - Eco-driving adoption level
      - Any user prefered value between 0%-100% 
      -
