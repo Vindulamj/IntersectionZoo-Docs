@@ -30,7 +30,8 @@ Benchmarking Results
 .. image:: image/benchmarking_results.png
     :align: center
     :alt: Benchmarking results
-    
+
+\
 Above Figure denote the performance histograms of PPO and DDPG under different evaluations. 
 All emission benefit percentages are measured relative to the human-driving baseline. 
 For y-axis counts that are large, we truncate them for better visualization and indicate the count on the plot. The spikes at
