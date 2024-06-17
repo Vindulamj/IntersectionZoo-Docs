@@ -173,8 +173,8 @@ that replicate the industry-standard `Motor Vehicle Emission Simulator (MOVES) <
 Intereted users can find the full list of vehicle emission models in the `NeuralMOVES <https://www.climatechange.ai/papers/neurips2022/90>`_ paper.
 
 
-User configuration layer
-------------------------
+User configuration
+------------------
 
 In **user configuration layer**, we provide users the flexibility to configure their experimental setup. 
 
