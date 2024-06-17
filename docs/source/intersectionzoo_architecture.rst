@@ -24,7 +24,7 @@ In building IntersectionZoo, three main logical layers are used to abstract func
 
 \
 
-Traffic scenario modeling
+Traffic Scenario Modeling
 -------------------------
 
 In the **traffic scenario modeling layer**, we first build data-driven simulation environments of signalized intersections and then use them to build traffic scenarios at those
@@ -92,7 +92,7 @@ The factors considered and data sources used for modeling them is given in the f
      - Internal combusion engines and electric engines as user prefered.
      - 
 
-Intersection feature distribution
+Intersection Feature Distribution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
