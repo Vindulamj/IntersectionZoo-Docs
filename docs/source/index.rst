@@ -42,6 +42,10 @@ V. Jayawardana, B. Freydt, A. Qu, C. Hickert, Z. Yan, C. Wu, "IntersectionZoo: E
 
    This paper is under review. We will update the citation information once the paper is published.
 
+License
+-------
+
+IntersectionZoo is licensed under the MIT License. See the `LICENSE <https://github.com/mit-wu-lab/IntersectionZoo/blob/main/LICENSE>`_ file for more information.
 
 Contents
 --------
@@ -49,8 +53,8 @@ Contents
 .. toctree::
 
    usage
-   main_concepts
-   simulation_setup
+   main_concepts_eco_driving
+   intersection_zoo_build
    rllib_integration
    Extensions
    benchmarking
