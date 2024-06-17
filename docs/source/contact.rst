@@ -1,8 +1,8 @@
 Contact
 =======
 
-IntersectionZoo Team
---------------------
+IntersectionZoo Zookeepers
+--------------------------
 
 IntersectionZoo is actively maintained by the Wu Lab at MIT. If you find a bug or are facing an issue, please open a 
 new issue in `GitHub <https://github.com/mit-wu-lab/IntersectionZoo/issues>`_. If you have any questions, comments, 
