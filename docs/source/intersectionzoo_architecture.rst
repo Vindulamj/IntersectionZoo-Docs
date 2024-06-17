@@ -1,9 +1,7 @@
-.. _intersectionzoo_build:
+.. _intersectionzoo_architecture:
 
 IntersectionZoo Architecture
 ============================
-
-.. _rllib:
 
 RLlib
 -----
