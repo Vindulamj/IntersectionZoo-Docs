@@ -30,9 +30,11 @@ Benchmarking Results
 .. image:: image/benchmarking_results.png
     :align: center
     :alt: Benchmarking results
-    :caption: Performance histograms of PPO and DDPG under different evaluations. All emission
-benefit percentages are measured relative to the human-driving baseline. For y-axis counts that are
-large, we truncate them for better visualization and indicate the count on the plot. The spikes at
+    :caption: Performance histograms of PPO and DDPG under different evaluations
+    
+Above Figure denote the performance histograms of PPO and DDPG under different evaluations. 
+All emission benefit percentages are measured relative to the human-driving baseline. 
+For y-axis counts that are large, we truncate them for better visualization and indicate the count on the plot. The spikes at
 0% are in part due to the aforementioned zeroing of emissions benefits for any scenarios where
 throughput is reduced. The total approach count is also given in each plot for reference, and the title
 indicates train CMDP → test CMDP
