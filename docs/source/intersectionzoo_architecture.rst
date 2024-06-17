@@ -1,9 +1,21 @@
 .. _intersectionzoo_architecture:
 
-IntersectionZoo Architecture
-============================
+IntersectionZoo 
+===============
 
-IntersectionZoo is built in three main logical layers as shown in the following figure.
+Architecture
+------------
+
+IntersectionZoo builds more than one million data-driven traffic scenarios around 16,334 signalized intersections in 10 major cities across United States. The figure below shows the 
+10 cities and the number of intersections in each city.
+
+.. image:: image/cities.png
+    :alt: Cities
+    :scale: 45%
+    :align: center
+
+
+In building IntersectionZoo, three main logical layers are used to abstract functionality as shown in the following figure.
 
 .. image:: image/architecture.png
     :alt: IntersectionZoo Architecture
@@ -18,19 +30,55 @@ Further scenario variations can be achieved by changing the eco-driving adoption
 
 The factors we consider and data sources we use for modeling each factor is given in the following table. 
 
-.. list-table:: Eco-driving factors, data sources, and final processed data
+.. list-table:: Eco-driving factors, data sources, and notes
    :widths: 20 40 40
    :header-rows: 1
 
-   * - Heading row 1, column 1
-     - Heading row 1, column 2
-     - Heading row 1, column 3
-   * - Row 1, column 1
+   * - Factor
+     - Data Source
+     - Notes
+   * - Intersection topology
+     - Open Street Maps
+     - Followed the guidelines from `Qu et al. (2023) <https://arxiv.org/abs/2405.13480>`_ to extract intersection topology from Open Street Maps.
+   * - Speed limits
+     - Open Street Maps
+     - 
+   * - Road grades
+     - US geological surveys
+     - 
+   * - Vehicle inflow
+     - Annual Average Daily Traffic (AADT) data
+     - Collected from each city transportation department open data portal
+   * - Driving hour (peak/off-peak)
+     - Standard conversion rates
+     - Taken from `Precision Traffic and Safety <https://www.precisiontrafficsafety.com/solutions/traffic-studies/>`_. 
+   * - Vehicle arrival process
+     - Realistic vehicle arrival process based on nearby intersections
+     - For every intersection, a set of default nearby intersections are added as a way of achieving realistic vehicle arrival processes subjected to nearby traffic signal dynamics.
+   * - Traffic Signal Timing
+     - Optimal traffic signal plan
+     - Exhasutively search through `Fixed Time <https://nacto.org/publication/urban-street-design-guide/intersection-design-elements/traffic-signals/fixed-vs-actuated-signalization/>`_ traffic signal plans to find the optimal plan for each intersection.
+   * - Vehicle age distribution
+     - MOVES database
+     - Taken from open database of `MOVES <https://www.epa.gov/moves>`_.
+   * - Fuel type distribution
+     - MOVES database
+     - Taken from open database of `MOVES <https://www.epa.gov/moves>`_.
+   * - Vehicle type distribution
+     - MOVES database
+     - Taken from open database of `MOVES <https://www.epa.gov/moves>`_.
+   * - Temperature and humidity
+     - US National Centers for Environmental Information
+     - All processes data are available here `MOVES <https://docs.google.com/spreadsheets/d/1IxSaxkgkE9tA21u5CtSUVWJPa15QfLHT/edit?usp=sharing&ouid=111770128718724110720&rtpof=true&sd=true>`_ for each city under each season (Fall, Spring, Summer and Winter) and under different weather conditions (sunny, rain, snow).
+   * - Human driver models
+     - Intelligent Driver Model (IDM) callibrated with real-world data.
+     - Calibration method is adopted from `Zhang et al. (2022) <https://arxiv.org/abs/2210.03571>`_ and the data is taken from `CitySim dataset <https://github.com/UCF-SST-Lab/UCF-SST-CitySim1-Dataset>`_ released under Apacahe 2.0 License.
+   * - Eco-driving adoption level
+     - Any user prefered value between 0%-100% 
      -
-     - Row 1, column 3
-   * - Row 2, column 1
-     - Row 2, column 2
-     - Row 2, column 3
+   * - Engine type
+     - Internal combusion engines and electric engines as user prefered.
+     - 
 
 RLlib
 -----
