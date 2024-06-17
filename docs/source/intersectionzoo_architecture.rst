@@ -24,6 +24,9 @@ In building IntersectionZoo, three main logical layers are used to abstract func
 
 \
 
+Traffic scenario modeling
+-------------------------
+
 In the **traffic scenario modeling layer**, we first build data-driven simulation environments of signalized intersections and then use them to build traffic scenarios at those
 intersections. Concretely, an intersection is first defined by factors such as lane lengths, lane counts, road grades, turn lane configuration, and speed limit of each approach. 
 Then, vehicle type, age, and fuel type distributions are used with appropriate traffic flow rates and human driven vehicle behaviors to define a realistic traffic flow. 
@@ -89,78 +92,78 @@ The factors considered and data sources used for modeling each factor is given i
      - Internal combusion engines and electric engines as user prefered.
      - 
 
+Intersection feature distribution
+---------------------------------
+
+In the following figure, we show the distribution of the intersection features across the 10 cities. 
+The full dataset of 16,334 intersections in compliance with SUMO simulator can be found in the `here <https://drive.google.com/drive/folders/1y3W83MPfnt9mSFGbg8L9TLHTXElXvcHs?usp=sharing>`_. 
+To be used with the IntersectionZoo, the dataset should be placed in the `dataset` folder.
+
+
+.. image:: image/city_features_summary.png
+    :alt: City feature summary
+    :scale: 42%
+    :align: center
+
+CMDP modeling
+-------------
+
+Once traffic scenarios are modeled, the **CMDP modeling layer** is used to define the state, action, reward to be used with the reinforcement learning algorithms. CMDP stands for Conextual Markov Decision Process and 
+is used to model problem variations. In IntersectionZoo, each city is modeled as a CMDP with each traffic scenario stemming from the city as a problem variation. In a CMDP, each problem
+variation is a MDP. In eco-driving, those MDPs are defined by the following state, action and reward functions and formulate as a multi-agent control problem.
+
+- **State**: The design of the observed state of a vehicle is mainly based on the capabilities of existing sensor technologies. 
+  The observed state includes the speed of the ego-vehicle, relative distance to the traffic signal, traffic signal state (red, green, or yellow) 
+  for the current phase, time remaining in the current phase, time remaining until the traffic signal turns green for the second and third cycle, 
+  vehicle location (i.e., a flag indicating whether the vehicle is approaching the intersection, at the intersection, or exiting the intersection), 
+  index of the vehicle's current lane, vehicle's intention to turn right, left, or go straight at the upcoming intersection, and for the follower 
+  and the leader vehicles on the same lane, adjacent right lane, and left lane of the ego-vehicle: speed, relative distance, turn signals status (turning right, left, or none).
+
+  For users interested in conditioning the policies based on the context, we provide controlled context features that include eco-driving adoption level, 
+  signal timing plan for the traffic signal phase relevant to the vehicle, atmospheric conditions such as temperature and humidity, the fuel type (electric or internal combustion engine), 
+  and information about the ego-vehicle's current approach (number of lanes, lane length, speed limit). The decision on which features 
+  are available for conditioning is also based on the feasibility of implementing them in the real world. 
+- **Action**: Longitudinal acceleration of each CV. For lane changing, a standard rule-based controller is used. This focuses IntersectionZoo on the continuous control aspect of eco-driving.
+- **Reward** The reward \( r_i^t \) for each CV \( i \) at time \( t \) is defined as in the following equation. Here, \( n \) is the vehicle fleet size, \( v_t^i \) is the velocity, and \( e_t^i \) is the CO\ :sub:`2` emissions of 
+- vehicle \( i \) at time \( t \). Hyperparameters include \( \eta \), \( \alpha \), \( \beta \), and \( \tau \). The indicator function \( \mathbbm{1}_{v^i_t < \tau} \) indicates 
+- whether the vehicle is stopped, while the term \( e_t^i \) encourages low emissions. The velocity term captures the effect on travel time. 
+- Users can configure the parameter \( \eta \) to either get a fleet-based reward, agent-based reward, or a combination of both. All such formulations are acceptable.
+
+.. math::
+   r_t^i = \eta \frac{1}{n}\sum_{i=0}^{n} (v_t^i + \alpha \mathbbm{1}_{v^i_t < \tau} + \beta e_t^i) + (1-\eta)(v_t^i + \alpha \mathbbm{1}_{v^i_t < \tau} + \beta e_t^i)
+
+   :label: reward
+
+IntersectionZoo provides additional objective terms for users who wish to assess the effect of multiple objectives on generalization.
+
+**Passenger comfort**: To accommodate passenger comfort, vehicles should maintain low accelerations and decelerations. 
+To encourage this behavior, a reward term is defined as \( |a_t| \) where \( a_t \) is the acceleration (or deceleration) of 
+the vehicle at time \( t \). When used with shared fleet-wise reward, the mean of \( |a_t| \) across all vehicles is used.
+
+**Kinematic realism**: Vehicles often cannot have high jerks (changes in accelerations in unit time) as actuators have jerk limits. 
+To account for this, IntersectionZoo provides jerk control as \( |a_{t} - a_{t-1}| \) where \( a_t \) is the acceleration (or deceleration) of 
+the vehicle at time \( t \). When used with shared fleet-wise reward, the mean jerk across all vehicles is used.
+
+**Fleet-level safety**: While individual vehicle safety is ensured using pre-defined rule-based checks, 
+IntersectionZoo provides surrogate safety measures such as Time To Collision (TTC) to improve traffic flow level safety. 
+These surrogate safety measures are commonly used by traffic engineers to measure the impact of new roadway interventions.
+
+Time to Collision (TTC) for a vehicle is measured as the time it would take for the vehicle to collide if they were to 
+continue moving along their current paths without any changes in speed or direction. Formally, \( TTC = \frac{\Delta d}{\Delta v} \) where \( \Delta d \) 
+is the relative distance and \( \Delta v \) is the relative velocity. Both distance and velocity are measured relative to 
+the leading vehicle of the ego-vehicle. In using TTC for fleet-level safety, we take the minimum
+ TTC value across all vehicles at a given time step and share it with all vehicles.
+
+
+**Emission Models**: \
+A key requirement for capturing the effect of traffic scenarios on vehicle exhaust emission is a rich emission function.
+For this prupose, IntersectionZoo comes with an intergrated `NeuralMOVES <https://www.climatechange.ai/papers/neurips2022/90>`_, a suite of comprehensive and fast neural emission models 
+that replicate the industry-standard `Motor Vehicle Emission Simulator (MOVES) <https://www.epa.gov/moves>`. We intregrate 88 vehicle exhasut emission models for differnet vehicle types under varying conditions. 
+Intereted users can find the full list of vehicle emission models in the `NeuralMOVES <https://www.climatechange.ai/papers/neurips2022/90>`_ paper.
+
+
 RLlib
 -----
 
-The environment defined in this package ``IntersectionZoo`` is defined in the ``IntersectionZooEnviroment`` class. 
-To make it easy to start developping agents for it, it uses the RLlib interfaces (inheritates from ``MultiAgentEnv``). 
-You can learn more about RLlib `here <https://docs.ray.io/en/latest/rllib/index.html>`_ and Multi-agents env `here <https://docs.ray.io/en/latest/rllib/package_ref/env/multi_agent_env.html>`_.
-
-Multi-task
-----------
-
-Another important functionnailty that the benchmarking suite offers is that the simulation can be based on multiple intersection shapes.
-
-The multi-task is managed by RLlib (documented `there <https://docs.ray.io/en/latest/rllib/rllib-advanced-api.html#curriculum-learning>`_).
-The environment thus also inherits from ``TaskSettableEnv``. During training the ``curriculum_fn`` allows users to choose new environment at each rollout.
-
-The tasks are defined by ``TaskContext`` objects. **They can either represent a single task or multiple of them**. If multiple, 
-one can either sample a single one uniformly at random with ``.sample()`` or list all possible single tasks exhaustively with ``.list_tasks``.
-
-The intersection can either be real-world intersection from <TODO add cities> (TODO cite paper). They can be found in the dataset folder.
-They can also be syntetic intersections, built to simplify the training process or evalute agents on very specific situations.
-
-All ``TaskContext`` define:
-
-- ``single_approach``, whether vehicles flow only through 1 of the intersection's approach or all of them.
-- ``penetration_rate``, the proportion of vehicles controlled by the RL policy.
-- ``temperature_humidity``, the temperature and humidity used by the fuel and emission model.
-- ``electric_or_regular``, the vehicle's technology, also for the fuel and emission model.
-
-``PathTaskContext`` define real-world intersections with:
-
-- ``path``, the path to a collection of intersections folder or a single one
-- ``aadt_conversion_factor`` (optional), the conversion factor to use to convert daily averages to hourly inflow rates
-
-``NetGenTaskContext`` define synthetic intersections with:
-
-- ``base_id``: Basic shape of the intersection, includes number of lanes and TL phases.
-- ``inflow``: Inflow in vehicles per hour, used as is (no more factor for single lane scenario).
-- ``green_phase``: Duration of the main green phase
-- ``red_phase``: Duration of the main red phase (not including amber)
-- ``lane_length``: Lane length in meters
-- ``speed_limit``: Speed limit in m/s
-- ``offset``: Offset between ghost cells (modelling incoming traffic) TL programs and the main intersection TL program.
-
-**Training and evaluation**
-
-The same policies can technically be used on any kind of intersection, thus it is possible for example to:
-- Train on synthetic intersections and evaluate on a real-world one
-- Train on a certain city and evaluate on another one
-- train on a set of synthetic intersections and evaluate on a distinct one (for example going from short to long cycle time)
-
-
-Environment config
-------------------
-
-The main config settings are:
-
-- Simulation process
- - ``sim_step_duration``: time duration of a simulation step, in seconds
- - ``warmup_steps``: duration (in simulation steps) of the warmup period at the beginning of the simulation during which vehicles are uncontrolled
- - ``task_context``: TaskContext used to initialize the environement. Can be changed later.
- - ``simulation_duration``: How long (in seconds) the simulation should be before finishing. 
-- Others
-    - ``visualize_sumo``: whether to use the SUMO gui
-    - ``control_lane_change``: whether the agents contols also when the vehicles change lane. It is disabled in all teh examples.
-
-Metrics
--------
-
-To evaluate the performance of the agents, multiple metrics are logged by the environment.
-At the end of each simulation, the metrics are sent to RLlib using an RLlib callback, allowing them to be collected and aggregated by RLlib.
-
-At the beginning pf the episode a warmup period can be added. During that period metrics vehicles are not controlled and metrics not logged,
-vehicles present during warmup are not counted at all in the metrics, even for their actions after the warmup ended.
-
-Weights and Biases can be also be used to log the metrics out of RLlib.
+IntersectionZoo is intergrated with `RLlib <https://docs.ray.io/en/latest/rllib/index.html>`_, a scalable reinforcement learning library that provides a unified API for testing and 
+benchmarking reinforcement learning algorithms. For more details on how to use IntersectionZoo with RLlib, please refer to the `RLlib intergarytion <https://intersectionzoo-docs.readthedocs.io/en/latest/rllib_integration.html>`_ section.
