@@ -55,6 +55,7 @@ Contents
    usage
    main_concepts
    intersectionzoo_architecture
+   simulation_setup
    rllib_integration
    benchmarking
    extensions

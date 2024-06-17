@@ -1,6 +1,6 @@
 .. _main_concepts_eco_driving:
 
-Introduction to eco-driving
+Introduction to Eco-driving
 ===========================
 
 .. _eco_driving:
