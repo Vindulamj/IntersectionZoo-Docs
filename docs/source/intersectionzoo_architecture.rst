@@ -11,7 +11,7 @@ IntersectionZoo builds more than one million data-driven traffic scenarios aroun
 
 .. image:: image/cities.png
     :alt: Cities
-    :scale: 45%
+    :scale: 30%
     :align: center
 
 
@@ -19,8 +19,10 @@ In building IntersectionZoo, three main logical layers are used to abstract func
 
 .. image:: image/architecture.png
     :alt: IntersectionZoo Architecture
-    :scale: 45%
+    :scale: 42%
     :align: center
+
+<br>
 
 In the **traffic scenario modeling layer**, we first build data-driven simulation environments of signalized intersections and then use them to build traffic scenarios at those
 intersections. Concretely, an intersection is first defined by factors such as lane lengths, lane counts, road grades, turn lane configuration, and speed limit of each approach. 
@@ -54,7 +56,7 @@ The factors we consider and data sources we use for modeling each factor is give
      - Taken from `Precision Traffic and Safety <https://www.precisiontrafficsafety.com/solutions/traffic-studies/>`_. 
    * - Vehicle arrival process
      - Realistic vehicle arrival process based on nearby intersections
-     - For every intersection, a set of default nearby intersections are added as a way of achieving realistic vehicle arrival processes subjected to nearby traffic signal dynamics.
+     - For every intersection, a set of default nearby intersections <br> are added as a way of achieving realistic vehicle arrival <br> processes subjected to nearby traffic signal dynamics.
    * - Traffic Signal Timing
      - Optimal traffic signal plan
      - Exhasutively search through `Fixed Time <https://nacto.org/publication/urban-street-design-guide/intersection-design-elements/traffic-signals/fixed-vs-actuated-signalization/>`_ traffic signal plans to find the optimal plan for each intersection.
