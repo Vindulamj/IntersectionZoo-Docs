@@ -3,6 +3,35 @@
 IntersectionZoo Architecture
 ============================
 
+IntersectionZoo is built in three main logical layers as shown in the following figure.
+
+.. image:: image/architecture.png
+    :alt: IntersectionZoo Architecture
+    :scale: 50%
+    :align: center
+
+In the **traffic scenario modeling layer**, we first build data-driven simulation environments of signalized intersections and then use them to build traffic scenarios at those
+intersections. Concretely, an intersection is first defined by factors such as lane lengths, lane counts, road grades, turn lane configuration, and speed limit of each approach. 
+Then, vehicle type, age, and fuel type distributions are used with appropriate traffic flow rates and human driven vehicle behaviors to define a realistic traffic flow. 
+Each intersection is then used to define traffic scenarios by further assigning representative atmospheric temperature and humidity values based on the season. 
+Further scenario variations can be achieved by changing the eco-driving adoption level (0%-100%). 
+
+The factors we consider and data sources we use for modeling each factor is given in the following table. 
+
+.. list-table:: Eco-driving factors, data sources, and final processed data
+   :widths: 20 40 40
+   :header-rows: 1
+
+   * - Heading row 1, column 1
+     - Heading row 1, column 2
+     - Heading row 1, column 3
+   * - Row 1, column 1
+     -
+     - Row 1, column 3
+   * - Row 2, column 1
+     - Row 2, column 2
+     - Row 2, column 3
+
 RLlib
 -----
 
