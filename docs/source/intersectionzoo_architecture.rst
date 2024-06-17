@@ -108,7 +108,7 @@ To be used with the IntersectionZoo, the dataset should be placed in the `datase
 
 \
 
-CMDP modeling
+CMDP Modeling
 -------------
 
 Once traffic scenarios are modeled, the **CMDP modeling layer** is used to contain them as `Conextual Markov Decision Process (CMDP) <https://arxiv.org/abs/1502.02259>`_ and define the state, action, reward to be used with the reinforcement learning algorithms. 
@@ -190,7 +190,7 @@ Descriptions of evaluation metrics.
     without any effective work. 
  
 
-User configuration
+User Configuration
 ------------------
 
 In **user configuration layer**, we provide users the flexibility to configure their experimental setup. 
