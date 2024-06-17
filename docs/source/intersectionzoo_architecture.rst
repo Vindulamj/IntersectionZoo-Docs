@@ -7,7 +7,7 @@ IntersectionZoo is built in three main logical layers as shown in the following 
 
 .. image:: image/architecture.png
     :alt: IntersectionZoo Architecture
-    :scale: 50%
+    :scale: 45%
     :align: center
 
 In the **traffic scenario modeling layer**, we first build data-driven simulation environments of signalized intersections and then use them to build traffic scenarios at those
