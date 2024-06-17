@@ -92,7 +92,7 @@ The factors considered and data sources used for modeling them is given in the f
      - Internal combusion engines and electric engines as user prefered.
      - 
 
-** Intersection feature distribution **
+**Intersection feature distribution** \
 
 
 In the following figure, we show the distribution of the intersection features across the 10 cities. 
@@ -105,6 +105,8 @@ To be used with the IntersectionZoo, the dataset should be placed in the `datase
     :scale: 42%
     :align: center
 
+\
+
 CMDP modeling
 -------------
 
@@ -112,7 +114,7 @@ Once traffic scenarios are modeled, the **CMDP modeling layer** is used to conta
 CMDP is used to model problem variations. In IntersectionZoo, each city is modeled as a CMDP with each traffic scenario stemming from the city as a problem variation. In a CMDP, each problem
 variation is an MDP defined by a problem variation context and called a context-MDP. In eco-driving, those context-MDPs are defined by the following state, action and reward functions and formulate as a multi-agent control problem.
 
-** Context-MDP Definition **
+**Context-MDP Definition** \
 
 - **State**: The design of the observed state of a vehicle is mainly based on the capabilities of existing sensor technologies. 
   The observed state includes the speed of the ego-vehicle, relative distance to the traffic signal, traffic signal state (red, green, or yellow) 
@@ -129,17 +131,14 @@ variation is an MDP defined by a problem variation context and called a context-
 - **Action**: Longitudinal acceleration of each controlled vehicle. For lane changing, a standard rule-based controller is used. This focuses IntersectionZoo on the continuous control aspect of eco-driving.
   
 - **Reward** The reward :math:`r_i^t` for each controlled vehicle :math:`i` at time :math:`t` is defined as in the following equation. 
-- Here, :math:`n` is the vehicle fleet size, :math:`v_t^i` is the velocity, and :math:`e_t^i` is the CO\ :sub:`2` emissions of vehicle :math:`i` at time :math:`t`. 
-- Hyperparameters include :math:`\eta`, :math:`\alpha`, :math:`\beta`, and :math:`\tau`. 
-- The indicator function :math:`1_{v^i_t < \tau}` indicates whether the vehicle is stopped, while the term :math:`e_t^i` encourages low emissions. 
-- The velocity term captures the effect on travel time. Users can configure the parameter :math:`\eta` to either get a fleet-based reward, agent-based reward, 
-- or a combination of both. All such formulations are acceptable.
+  Here, :math:`n` is the vehicle fleet size, :math:`v_t^i` is the velocity, and :math:`e_t^i` is the CO\ :sub:`2` emissions of vehicle :math:`i` at time :math:`t`. 
+  Hyperparameters include :math:`\eta`, :math:`\alpha`, :math:`\beta`, and :math:`\tau`. 
+  The indicator function :math:`1_{v^i_t < \tau}` indicates whether the vehicle is stopped, while the term :math:`e_t^i` encourages low emissions. 
+  The velocity term captures the effect on travel time. Users can configure the parameter :math:`\eta` to either get a fleet-based reward, agent-based reward, or a combination of both. All such formulations are acceptable.
 
 
 .. math::
    r_t^i = \eta \frac{1}{n}\sum_{i=0}^{n} (v_t^i + \alpha 1_{v^i_t < \tau} + \beta e_t^i) + (1-\eta)(v_t^i + \alpha 1_{v^i_t < \tau} + \beta e_t^i)
-
-   :label: reward
 
 IntersectionZoo provides additional objective terms for users who wish to assess the effect of multiple objectives on generalization.
 
@@ -163,7 +162,8 @@ is the relative distance and :math:`\Delta v` is the relative velocity. Both dis
 the leading vehicle of the ego-vehicle. In using TTC for fleet-level safety, we take the minimum TTC value across all vehicles at a given time step and share it with all vehicles.
 
 
-** Emission Models **:
+**Emission Models** \
+
 A key requirement for capturing the effect of traffic scenarios on vehicle exhaust emission is a rich emission function.
 For this prupose, IntersectionZoo comes with an intergrated `NeuralMOVES <https://www.climatechange.ai/papers/neurips2022/90>`_, a suite of comprehensive and fast neural emission models 
 that replicate the industry-standard `Motor Vehicle Emission Simulator (MOVES) <https://www.epa.gov/moves>`_. We intregrate 88 vehicle exhasut emission models for differnet vehicle types under varying conditions. 
