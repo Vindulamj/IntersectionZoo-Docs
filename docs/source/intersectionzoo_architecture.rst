@@ -1,9 +1,9 @@
 .. _intersectionzoo_architecture:
 
-IntersectionZoo 
-===============
+IntersectionZoo Overview
+========================
 
-Architecture
+Overview
 ------------
 
 IntersectionZoo builds more than one million data-driven traffic scenarios around 16,334 signalized intersections in 10 major cities across United States. The figure below shows the 
@@ -33,7 +33,7 @@ Then, vehicle type, age, and fuel type distributions are used with appropriate t
 Each intersection is then used to define traffic scenarios by further assigning representative atmospheric temperature and humidity values based on the season. 
 Further scenario variations can be achieved by changing the eco-driving adoption level (0%-100%). 
 
-The factors considered and data sources used for modeling each factor is given in the following table. 
+The factors considered and data sources used for modeling them is given in the following table. 
 
 .. list-table:: Eco-driving factors, data sources, and notes
    :widths: 15 30 65
@@ -92,8 +92,8 @@ The factors considered and data sources used for modeling each factor is given i
      - Internal combusion engines and electric engines as user prefered.
      - 
 
-Intersection feature distribution
----------------------------------
+** Intersection feature distribution **
+
 
 In the following figure, we show the distribution of the intersection features across the 10 cities. 
 The full dataset of 16,334 intersections in compliance with SUMO simulator can be found in the `here <https://drive.google.com/drive/folders/1y3W83MPfnt9mSFGbg8L9TLHTXElXvcHs?usp=sharing>`_. 
@@ -108,9 +108,11 @@ To be used with the IntersectionZoo, the dataset should be placed in the `datase
 CMDP modeling
 -------------
 
-Once traffic scenarios are modeled, the **CMDP modeling layer** is used to define the state, action, reward to be used with the reinforcement learning algorithms. CMDP stands for Conextual Markov Decision Process and 
-is used to model problem variations. In IntersectionZoo, each city is modeled as a CMDP with each traffic scenario stemming from the city as a problem variation. In a CMDP, each problem
-variation is a MDP. In eco-driving, those MDPs are defined by the following state, action and reward functions and formulate as a multi-agent control problem.
+Once traffic scenarios are modeled, the **CMDP modeling layer** is used to contain them as `Conextual Markov Decision Process (CMDP) <https://arxiv.org/abs/1502.02259>`_ and define the state, action, reward to be used with the reinforcement learning algorithms. 
+CMDP is used to model problem variations. In IntersectionZoo, each city is modeled as a CMDP with each traffic scenario stemming from the city as a problem variation. In a CMDP, each problem
+variation is an MDP defined by a problem variation context and called a context-MDP. In eco-driving, those context-MDPs are defined by the following state, action and reward functions and formulate as a multi-agent control problem.
+
+** Context-MDP Definition **
 
 - **State**: The design of the observed state of a vehicle is mainly based on the capabilities of existing sensor technologies. 
   The observed state includes the speed of the ego-vehicle, relative distance to the traffic signal, traffic signal state (red, green, or yellow) 
@@ -123,42 +125,48 @@ variation is a MDP. In eco-driving, those MDPs are defined by the following stat
   signal timing plan for the traffic signal phase relevant to the vehicle, atmospheric conditions such as temperature and humidity, the fuel type (electric or internal combustion engine), 
   and information about the ego-vehicle's current approach (number of lanes, lane length, speed limit). The decision on which features 
   are available for conditioning is also based on the feasibility of implementing them in the real world. 
-- **Action**: Longitudinal acceleration of each CV. For lane changing, a standard rule-based controller is used. This focuses IntersectionZoo on the continuous control aspect of eco-driving.
-- **Reward** The reward \( r_i^t \) for each CV \( i \) at time \( t \) is defined as in the following equation. Here, \( n \) is the vehicle fleet size, \( v_t^i \) is the velocity, and \( e_t^i \) is the CO\ :sub:`2` emissions of 
-- vehicle \( i \) at time \( t \). Hyperparameters include \( \eta \), \( \alpha \), \( \beta \), and \( \tau \). The indicator function \( \mathbbm{1}_{v^i_t < \tau} \) indicates 
-- whether the vehicle is stopped, while the term \( e_t^i \) encourages low emissions. The velocity term captures the effect on travel time. 
-- Users can configure the parameter \( \eta \) to either get a fleet-based reward, agent-based reward, or a combination of both. All such formulations are acceptable.
+
+- **Action**: Longitudinal acceleration of each controlled vehicle. For lane changing, a standard rule-based controller is used. This focuses IntersectionZoo on the continuous control aspect of eco-driving.
+  
+- **Reward** The reward :math:`r_i^t` for each controlled vehicle :math:`i` at time :math:`t` is defined as in the following equation. 
+- Here, :math:`n` is the vehicle fleet size, :math:`v_t^i` is the velocity, and :math:`e_t^i` is the CO\ :sub:`2` emissions of vehicle :math:`i` at time :math:`t`. 
+- Hyperparameters include :math:`\eta`, :math:`\alpha`, :math:`\beta`, and :math:`\tau`. 
+- The indicator function :math:`1_{v^i_t < \tau}` indicates whether the vehicle is stopped, while the term :math:`e_t^i` encourages low emissions. 
+- The velocity term captures the effect on travel time. Users can configure the parameter :math:`\eta` to either get a fleet-based reward, agent-based reward, 
+- or a combination of both. All such formulations are acceptable.
+
 
 .. math::
-   r_t^i = \eta \frac{1}{n}\sum_{i=0}^{n} (v_t^i + \alpha \mathbbm{1}_{v^i_t < \tau} + \beta e_t^i) + (1-\eta)(v_t^i + \alpha \mathbbm{1}_{v^i_t < \tau} + \beta e_t^i)
+   r_t^i = \eta \frac{1}{n}\sum_{i=0}^{n} (v_t^i + \alpha 1_{v^i_t < \tau} + \beta e_t^i) + (1-\eta)(v_t^i + \alpha 1_{v^i_t < \tau} + \beta e_t^i)
 
    :label: reward
 
 IntersectionZoo provides additional objective terms for users who wish to assess the effect of multiple objectives on generalization.
 
 **Passenger comfort**: To accommodate passenger comfort, vehicles should maintain low accelerations and decelerations. 
-To encourage this behavior, a reward term is defined as \( |a_t| \) where \( a_t \) is the acceleration (or deceleration) of 
-the vehicle at time \( t \). When used with shared fleet-wise reward, the mean of \( |a_t| \) across all vehicles is used.
+To encourage this behavior, a reward term is defined as :math:`|a_t|` where :math:`a_t` is the acceleration (or deceleration) of 
+the vehicle at time :math:`t`. When used with shared fleet-wise reward, the mean of :math:`|a_t|` across all vehicles is used.
+
 
 **Kinematic realism**: Vehicles often cannot have high jerks (changes in accelerations in unit time) as actuators have jerk limits. 
-To account for this, IntersectionZoo provides jerk control as \( |a_{t} - a_{t-1}| \) where \( a_t \) is the acceleration (or deceleration) of 
-the vehicle at time \( t \). When used with shared fleet-wise reward, the mean jerk across all vehicles is used.
+To account for this, IntersectionZoo provides jerk control as :math:`|a_{t} - a_{t-1}|` where :math:`a_t` is the acceleration (or deceleration) of 
+the vehicle at time :math:`t`. When used with shared fleet-wise reward, the mean jerk across all vehicles is used.
+
 
 **Fleet-level safety**: While individual vehicle safety is ensured using pre-defined rule-based checks, 
 IntersectionZoo provides surrogate safety measures such as Time To Collision (TTC) to improve traffic flow level safety. 
 These surrogate safety measures are commonly used by traffic engineers to measure the impact of new roadway interventions.
 
 Time to Collision (TTC) for a vehicle is measured as the time it would take for the vehicle to collide if they were to 
-continue moving along their current paths without any changes in speed or direction. Formally, \( TTC = \frac{\Delta d}{\Delta v} \) where \( \Delta d \) 
-is the relative distance and \( \Delta v \) is the relative velocity. Both distance and velocity are measured relative to 
-the leading vehicle of the ego-vehicle. In using TTC for fleet-level safety, we take the minimum
- TTC value across all vehicles at a given time step and share it with all vehicles.
+continue moving along their current paths without any changes in speed or direction. Formally, :math:`TTC = \frac{\Delta d}{\Delta v}` where :math:`\Delta d` 
+is the relative distance and :math:`\Delta v` is the relative velocity. Both distance and velocity are measured relative to 
+the leading vehicle of the ego-vehicle. In using TTC for fleet-level safety, we take the minimum TTC value across all vehicles at a given time step and share it with all vehicles.
 
 
-**Emission Models**: \
+** Emission Models **:
 A key requirement for capturing the effect of traffic scenarios on vehicle exhaust emission is a rich emission function.
 For this prupose, IntersectionZoo comes with an intergrated `NeuralMOVES <https://www.climatechange.ai/papers/neurips2022/90>`_, a suite of comprehensive and fast neural emission models 
-that replicate the industry-standard `Motor Vehicle Emission Simulator (MOVES) <https://www.epa.gov/moves>`. We intregrate 88 vehicle exhasut emission models for differnet vehicle types under varying conditions. 
+that replicate the industry-standard `Motor Vehicle Emission Simulator (MOVES) <https://www.epa.gov/moves>`_. We intregrate 88 vehicle exhasut emission models for differnet vehicle types under varying conditions. 
 Intereted users can find the full list of vehicle emission models in the `NeuralMOVES <https://www.climatechange.ai/papers/neurips2022/90>`_ paper.
 
 
@@ -166,4 +174,4 @@ RLlib
 -----
 
 IntersectionZoo is intergrated with `RLlib <https://docs.ray.io/en/latest/rllib/index.html>`_, a scalable reinforcement learning library that provides a unified API for testing and 
-benchmarking reinforcement learning algorithms. For more details on how to use IntersectionZoo with RLlib, please refer to the `RLlib intergarytion <https://intersectionzoo-docs.readthedocs.io/en/latest/rllib_integration.html>`_ section.
+benchmarking reinforcement learning algorithms. For more details on how to use IntersectionZoo with RLlib, please refer to the `RLlib intergration <https://intersectionzoo-docs.readthedocs.io/en/latest/rllib_integration.html>`_ section.
