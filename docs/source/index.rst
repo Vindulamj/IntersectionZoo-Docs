@@ -54,7 +54,7 @@ Contents
 
    usage
    main_concepts
-   intersectionzoo_build
+   intersectionzoo_architecture
    rllib_integration
    benchmarking
    extensions
