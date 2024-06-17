@@ -42,7 +42,7 @@ indicates train CMDP → test CMDP
 **In-distribution performance**: Here, we assess how well the algorithms can generalize when the training and testing context MDPs are the same. 
 For this, we leverage Salt Lake City (SLC) CMDP (282 intersections) and Atlanta CMDP (621 intersections) under summer temperature and humidity, 
 with 1/3 of vehicles being CVs. Following the IID evaluation protocol, we train and evaluate on the same CMDP. 
-The emission benefit histograms are given in Figure 1a for SLC and in 1b for Atlanta. 
+The emission benefit histograms are given in Figure (a) for SLC and in (b) for Atlanta. 
 As can be seen, both PPO and DDPG fail to generalize, having many failure cases. 
 Failures include having higher emissions and/or lower throughput than the human-driving baseline (0\% benefits case). 
 While DDPG has a better success rate than PPO, it is still far from being successful. 
@@ -51,7 +51,7 @@ indicating that different CMDPs may pose different challenges in generalization.
 
 **Productivity in generalization**: Productivity is when the learned policies generalization beyond seen training data. 
 To test this in PPO and DDPG, we perform an OOD evaluation by using a policy trained on SLC CMDP with zero-shot transfer to Atlanta CMDP. 
-The resultant performance histogram is given in Figure 1c. Note that from previous analysis, it was evident that the DDPG policy trained on SLC 
+The resultant performance histogram is given in Figure (c). Note that from previous analysis, it was evident that the DDPG policy trained on SLC 
 CMDP seems to perform better than the policy trained on Atlanta CMDP. However, even after the transfer, both DDPG and PPO seem to perform poorly, 
 further indicating the limitations of existing RL algorithms when it comes to generalization across problem variations. 
 
@@ -61,6 +61,6 @@ we first define a set of context features and their corresponding values as a se
 Then we train policies by sampling feature values from each distribution. However, certain feature value combinations are never 
 used during training. During testing, we only use the feature value combinations that were not used in training. 
 This tests the algorithms' ability to systematically combine known knowledge to generalize. The resultant performance 
-histogram is given in Figure 1d. Both DDPG and PPO fail to systematically generalize; baseline performs better in almost all cases. 
+histogram is given in Figure (d). Both DDPG and PPO fail to systematically generalize; baseline performs better in almost all cases. 
 
 For training reward curves and other metrics, please refer to `this weights and biases report <https://wandb.ai/vindula/intersectionzoo/reports/IntersectionZoo-Eco-driving-for-Benchmarking-Multi-Agent-Contextual-Reinforcement-Learning--Vmlldzo4MTg1NDE3>`_. 
