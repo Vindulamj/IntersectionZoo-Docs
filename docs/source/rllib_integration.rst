@@ -32,13 +32,10 @@ Once downloaded, they should be placed in the dataset folder. Once configured, f
 
 ``PathTaskContext`` define real-world intersections with:
 
-- ``single_approach``: how to simulate the intersection. If the strings "A", "B", "C", "D" is used only a one incoming and outgoing approach of the intersection is simulated.
-   if set to "True" each incoming and outgoing approach pair will be simulated seperately, and if "False" all of them at the same time woill be used. Note that if not all approaches are used, 
-   unprotected left turns will not be simulated and the intersection will be simplified.
+- ``single_approach``: how to simulate the intersection. If the strings "A", "B", "C", "D" is used only a one incoming and outgoing approach of the intersection is simulated. if set to "True" each incoming and outgoing approach pair will be simulated seperately, and if "False" all of them at the same time woill be used. Note that if not all approaches are used,  unprotected left turns will not be simulated and the intersection will be simplified.
 - ``penetration_rate``: the proportion of vehicles controlled by the learned policy (any value between 0 to 1).
 - ``temperature_humidity``: a string indicating the temperature and humidity for the defined traffic scenario (format: temperature_humidity).
-- ``electric_or_regular``: what type of setup to use in term of having electric vehicles vs internal combustion engine vehicles.
-        Use keywords REGULAR for internal combustion engine vehicles, ELECTRIC for electric vehicles. 
+- ``electric_or_regular``: what type of setup to use in term of having electric vehicles vs internal combustion engine vehicles. Use keywords REGULAR for internal combustion engine vehicles, ELECTRIC for electric vehicles. 
 - ``path``: path to the intersection dataset (this can also point to a single intersection file)
 - ``aadt_conversion_factor``: the conversion factor to use to convert daily inflow rates to to hourly inflow rates. By default we recommend using 0.084 for peak hours and 0.055 for off-peak hours.
 
@@ -49,8 +46,7 @@ To use syntetically generated intersections, ``NetGenTaskContext`` can be used. 
 
 ``NetGenTaskContext`` define synthetic intersections with:
 
-- ``base_id``: number of lanes in the approach and the number of relevant traffic signal phases put together. First digit is lane number, second is phase number. Only 11, 21, 31, 41, 22, 32, 42 supported. For example
-    21 means 2 lanes and 1 phase (through traffic), 42 means 4 lanes and 2 phases (through and left turn traffic).
+- ``base_id``: number of lanes in the approach and the number of relevant traffic signal phases put together. First digit is lane number, second is phase number. Only 11, 21, 31, 41, 22, 32, 42 supported. For example 21 means 2 lanes and 1 phase (through traffic), 42 means 4 lanes and 2 phases (through and left turn traffic).
 - ``inflow``: Inflow in vehicles per hour.
 - ``green_phase``: Duration of the green phase of the traffic signal in seconds.
 - ``red_phase``: Duration of the red phase of the traffic signal in seconds.
@@ -61,58 +57,27 @@ To use syntetically generated intersections, ``NetGenTaskContext`` can be used. 
 Further details of these parameters can be found in the class definition. For a tutorial on how to use ``NetGenTaskContext``, 
 please refer to the `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section.
 
-**Training and evaluation**
+Simulation Config (`🔗 <https://github.com/mit-wu-lab/IntersectionZoo/blob/main/code/env/config.py>`_)
+^^^^^^^^^^^^^^^^^^
 
-The same policies can technically be used on any kind of intersection, thus it is possible for example to:
-- Train on synthetic intersections and evaluate on a real-world one
-- Train on a certain city and evaluate on another one
-- train on a set of synthetic intersections and evaluate on a distinct one (for example going from short to long cycle time)
+``IntersectionZooEnvConfig`` class provides many configurations that users may desired to change for their experiments. The main config settings are:
 
-
-Environment config
-------------------
-
-The main config settings are:
-
-- Simulation process
+- Simulation related
  - ``sim_step_duration``: time duration of a simulation step, in seconds
  - ``warmup_steps``: duration (in simulation steps) of the warmup period at the beginning of the simulation during which vehicles are uncontrolled
- - ``task_context``: TaskContext used to initialize the environement. Can be changed later.
- - ``simulation_duration``: How long (in seconds) the simulation should be before finishing. 
+ - ``task_context``: TaskContext used to initialize the environement. Either ``PathTaskContext`` or ``NetGenTaskContext``.
+ - ``simulation_duration``: How long (in seconds) is the simulation (horizon). 
+- MDP related
+ - ``stop_penalty``: penatlty used in the reward function for vehicles stopping
+ - ``accel_penalty``: penalty used in the reward function for vehicles accelerating and decelerating
+ - ``emission_penalty``: penalty used in the reward function for vehicles emitting pollutants (CO2)
 - Others
-    - ``visualize_sumo``: whether to use the SUMO gui
-    - ``control_lane_change``: whether the agents contols also when the vehicles change lane. It is disabled in all teh examples.
+    - ``visualize_sumo``: whether to use the SUMO gui to visualize the simulation (not recommended for training)
 
-Metrics
+Logging
 -------
 
-To evaluate the performance of the agents, multiple metrics are logged by the environment.
+To evaluate the performance of the agents, multiple metrics are logged by the IntersectionZoo by defualt. 
 At the end of each simulation, the metrics are sent to RLlib using an RLlib callback, allowing them to be collected and aggregated by RLlib.
-
-At the beginning pf the episode a warmup period can be added. During that period metrics vehicles are not controlled and metrics not logged,
-vehicles present during warmup are not counted at all in the metrics, even for their actions after the warmup ended.
-
-Weights and Biases can be also be used to log the metrics out of RLlib.
-
-The main class, ``IntersectionZooEnvironment``, is a subclass of ``rllib.env.MultiAgentEnv`` (multi-agent environment) and ``rllib.env.TaskSettableEnv`` (multi-task environment). When using the environment with an RLlib policy, the following minimal configuration should be passed:
-
-.. code-block:: python
-
-    .environment(
-        env=IntersectionZooEnvironment,
-        env_config={"intersectionzoo_env_config": env_conf},
-        env_task_fn=curriculum_fn,
-    )
-
-- The ``env_config`` is mandatory. Please refer to the ``config.py`` file for the minimum list of attributes to pass.
-- The ``env_task_fn`` is necessary to change the task during training. You can provide a custom function to handle task changes.
-
-The metrics are also fed to RLlib, for this you need to pass the following configuration:
-
-.. code-block:: python
-
-    .callbacks(MetricsCallback)
-
-The metrics can then be visualized in TensorBoard, or fed back to other systems like Weights and Biases.
-
-The policy can easily be evaluated, as showed in ``policy_evalution.py``. Please note that the eval configuration used is the one passed during training.
+During the warmup period, vehicles are not controlled using learned policy and metrics not logged. For more detials on how to use this logging functionality, 
+please refer to the `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section.
