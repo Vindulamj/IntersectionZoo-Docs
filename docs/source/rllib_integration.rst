@@ -24,32 +24,42 @@ Task Definitions (`🔗 <https://github.com/mit-wu-lab/IntersectionZoo/blob/main
 ^^^^^^^^^^^^^^^^
 
 IntersectionZoo defines tasks using ``TaskContext`` objects. They can either represent a single task or multiple tasks. If multiple tasks are defined, 
-one can either sample a single one uniformly at random with ``.sample()`` or list all possible single tasks exhaustively with ``.list_tasks()``.
+one can either sample a single task uniformly at random with ``.sample()`` or list all possible single tasks exhaustively with ``.list_tasks()``.
 
-The intersection can either be real-world intersection from <TODO add cities> (TODO cite paper). They can be found in the dataset folder.
-They can also be syntetic intersections, built to simplify the training process or evalute agents on very specific situations.
 
-All ``TaskContext`` define:
-
-- ``single_approach``, whether vehicles flow only through 1 of the intersection's approach or all of them.
-- ``penetration_rate``, the proportion of vehicles controlled by the RL policy.
-- ``temperature_humidity``, the temperature and humidity used by the fuel and emission model.
-- ``electric_or_regular``, the vehicle's technology, also for the fuel and emission model.
+The intersections used with IntersectionZoo can either be real-world intersections provided with IntersectionZoo. The intersection SUMO network file datasets of 10 cities can be found `here <https://drive.google.com/drive/folders/1y3W83MPfnt9mSFGbg8L9TLHTXElXvcHs>`_.
+Once downloaded, they should be placed in the dataset folder. Once configured, further traffic scenario variations can be generated using ``PathTaskContext``.
 
 ``PathTaskContext`` define real-world intersections with:
 
-- ``path``, the path to a collection of intersections folder or a single one
-- ``aadt_conversion_factor`` (optional), the conversion factor to use to convert daily averages to hourly inflow rates
+- ``single_approach``: how to simulate the intersection. If the strings "A", "B", "C", "D" is used only a one incoming and outgoing approach of the intersection is simulated.
+   if set to "True" each incoming and outgoing approach pair will be simulated seperately, and if "False" all of them at the same time woill be used. Note that if not all approaches are used, 
+   unprotected left turns will not be simulated and the intersection will be simplified.
+- ``penetration_rate``: the proportion of vehicles controlled by the learned policy (any value between 0 to 1).
+- ``temperature_humidity``: a string indicating the temperature and humidity for the defined traffic scenario (format: temperature_humidity).
+- ``electric_or_regular``: what type of setup to use in term of having electric vehicles vs internal combustion engine vehicles.
+        Use keywords REGULAR for internal combustion engine vehicles, ELECTRIC for electric vehicles. 
+- ``path``: path to the intersection dataset (this can also point to a single intersection file)
+- ``aadt_conversion_factor``: the conversion factor to use to convert daily inflow rates to to hourly inflow rates. By default we recommend using 0.084 for peak hours and 0.055 for off-peak hours.
+
+Further details of these parameters can be found in the class definition. For a tutorial on how to use ``PathTaskContext``, 
+please refer to the `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section.
+
+To use syntetically generated intersections, ``NetGenTaskContext`` can be used. However, we simulate each incoming and outgoing approach pair seperately.
 
 ``NetGenTaskContext`` define synthetic intersections with:
 
-- ``base_id``: Basic shape of the intersection, includes number of lanes and TL phases.
-- ``inflow``: Inflow in vehicles per hour, used as is (no more factor for single lane scenario).
-- ``green_phase``: Duration of the main green phase
-- ``red_phase``: Duration of the main red phase (not including amber)
-- ``lane_length``: Lane length in meters
-- ``speed_limit``: Speed limit in m/s
-- ``offset``: Offset between ghost cells (modelling incoming traffic) TL programs and the main intersection TL program.
+- ``base_id``: number of lanes in the approach and the number of relevant traffic signal phases put together. First digit is lane number, second is phase number. Only 11, 21, 31, 41, 22, 32, 42 supported. For example
+    21 means 2 lanes and 1 phase (through traffic), 42 means 4 lanes and 2 phases (through and left turn traffic).
+- ``inflow``: Inflow in vehicles per hour.
+- ``green_phase``: Duration of the green phase of the traffic signal in seconds.
+- ``red_phase``: Duration of the red phase of the traffic signal in seconds.
+- ``lane_length``: Lane length in meters.
+- ``speed_limit``: Speed limit in m/s.
+- ``offset``: Offset between nearby intersections (modelling incoming traffic) traffic signal timing programs and the main intersection traffic signal timing program.
+
+Further details of these parameters can be found in the class definition. For a tutorial on how to use ``NetGenTaskContext``, 
+please refer to the `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section.
 
 **Training and evaluation**
 
