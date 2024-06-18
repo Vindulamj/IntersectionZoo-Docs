@@ -27,12 +27,12 @@ IntersectionZoo defines tasks using ``TaskContext`` objects. They can either rep
 one can either sample a single task uniformly at random with ``.sample()`` or list all possible single tasks exhaustively with ``.list_tasks()``.
 
 
-The intersections used with IntersectionZoo can either be real-world intersections provided with IntersectionZoo. The intersection SUMO network file datasets of 10 cities can be found `here <https://drive.google.com/drive/folders/1y3W83MPfnt9mSFGbg8L9TLHTXElXvcHs>`_.
-Once downloaded, they should be placed in the dataset folder. Once configured, further traffic scenario variations can be generated using ``PathTaskContext``.
+The intersections used with IntersectionZoo can be real-world intersections provided with IntersectionZoo. The SUMO network files of these intersections in the 10 cities can be found `here <https://drive.google.com/drive/folders/1y3W83MPfnt9mSFGbg8L9TLHTXElXvcHs>`_.
+Once downloaded, they should be placed in the dataset folder. Then, further traffic scenario variations can be generated using ``PathTaskContext``.
 
 ``PathTaskContext`` define real-world intersections with:
 
-- ``single_approach``: how to simulate the intersection. If the strings "A", "B", "C", "D" is used only a one incoming and outgoing approach of the intersection is simulated. if set to "True" each incoming and outgoing approach pair will be simulated seperately, and if "False" all of them at the same time woill be used. Note that if not all approaches are used,  unprotected left turns will not be simulated and the intersection will be simplified.
+- ``single_approach``: how to simulate the intersection. If the strings "A", "B", "C", "D" is used only a one incoming and outgoing approach of the intersection is simulated. If set to "True" each incoming and outgoing approach pair will be simulated seperately, and if "False" all of them at the same time will be used. Note that if not all approaches are used,  unprotected left turns will not be simulated and the intersection will be simplified.
 - ``penetration_rate``: the proportion of vehicles controlled by the learned policy (any value between 0 to 1).
 - ``temperature_humidity``: a string indicating the temperature and humidity for the defined traffic scenario (format: temperature_humidity).
 - ``electric_or_regular``: what type of setup to use in term of having electric vehicles vs internal combustion engine vehicles. Use keywords REGULAR for internal combustion engine vehicles, ELECTRIC for electric vehicles. 
@@ -47,12 +47,12 @@ To use procedurally generated intersections, ``NetGenTaskContext`` can be used. 
 ``NetGenTaskContext`` define procedurally generated intersections with:
 
 - ``base_id``: number of lanes in the approach and the number of relevant traffic signal phases put together. First digit is lane number, second is phase number. Only 11, 21, 31, 41, 22, 32, 42 supported. For example 21 means 2 lanes and 1 phase (through traffic), 42 means 4 lanes and 2 phases (through and left turn traffic).
-- ``inflow``: Inflow in vehicles per hour.
-- ``green_phase``: Duration of the green phase of the traffic signal in seconds.
-- ``red_phase``: Duration of the red phase of the traffic signal in seconds.
-- ``lane_length``: Lane length in meters.
-- ``speed_limit``: Speed limit in m/s.
-- ``offset``: Offset between nearby intersections (modelling incoming traffic) traffic signal timing programs and the main intersection traffic signal timing program.
+- ``inflow``: vehicle inflow in vehicles per hour.
+- ``green_phase``: duration of the green phase of the traffic signal in seconds.
+- ``red_phase``: duration of the red phase of the traffic signal in seconds.
+- ``lane_length``: lane length in meters.
+- ``speed_limit``: speed limit in m/s.
+- ``offset``: offset between nearby intersections traffic signal timing and the main intersection traffic signal timing.
 
 Further details of these parameters can be found in the class definition. For a tutorial on how to use ``NetGenTaskContext``, 
 please refer to the `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section.
@@ -60,24 +60,24 @@ please refer to the `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/l
 Simulation Config (`Class <https://github.com/mit-wu-lab/IntersectionZoo/blob/main/code/env/config.py>`_)
 ^^^^^^^^^^^^^^^^^^
 
-``IntersectionZooEnvConfig`` class provides many configurations that users may desired to change for their experiments. The main config settings are:
+``IntersectionZooEnvConfig`` class provides many configurations that interested users may find useful to change for their experiments. The main config settings are:
 
 - Simulation related
  - ``sim_step_duration``: time duration of a simulation step, in seconds
- - ``warmup_steps``: duration (in simulation steps) of the warmup period at the beginning of the simulation during which vehicles are uncontrolled
+ - ``warmup_steps``: duration (in simulation steps) of the warmup period at the beginning of the simulation during which vehicles are not controlled but driven by Intelligent Driver Model (IDM)
  - ``task_context``: TaskContext used to initialize the environement. Either ``PathTaskContext`` or ``NetGenTaskContext``.
- - ``simulation_duration``: How long (in seconds) is the simulation (horizon). 
+ - ``simulation_duration``: how long (in seconds) is the simulation (horizon). 
 - MDP related
- - ``stop_penalty``: penatlty used in the reward function for vehicles stopping
+ - ``stop_penalty``: penatlty used in the reward function for stopped vehicles
  - ``accel_penalty``: penalty used in the reward function for vehicles accelerating and decelerating
  - ``emission_penalty``: penalty used in the reward function for vehicles emitting pollutants (CO2)
 - Others
-    - ``visualize_sumo``: whether to use the SUMO gui to visualize the simulation (not recommended for training)
+    - ``visualize_sumo``: whether to use the SUMO gui to visualize the simulation (not recommended during training)
 
 Logging
 -------
 
-To evaluate the performance of the agents, multiple metrics are logged by the IntersectionZoo by defualt. 
+To evaluate the performance of the agents, multiple metrics are logged by the IntersectionZoo by default. 
 At the end of each simulation, the metrics are sent to RLlib using an RLlib callback, allowing them to be collected and aggregated by RLlib.
 During the warmup period, vehicles are not controlled using learned policy and metrics not logged. For more detials on how to use this logging functionality, 
 please refer to the `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section.
