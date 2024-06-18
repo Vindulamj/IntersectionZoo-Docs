@@ -5,7 +5,7 @@ Rllib Integration
 
 IntersectionZoo is by default integrated with `RLlib <https://docs.ray.io/en/latest/rllib/index.html>`_, a scalable reinforcement learning library.
 
-IntersectionZooEnv (`Github <https://github.com/mit-wu-lab/IntersectionZoo/blob/main/code/env/environment.py>`_)
+IntersectionZooEnv (`🔗 <https://github.com/mit-wu-lab/IntersectionZoo/blob/main/code/env/environment.py>`_)
 ------------------
 
 The default context-MDP used in IntersectionZoo is defined in the ``IntersectionZooEnv``. 
@@ -20,7 +20,7 @@ Common approaches to learn generalizable policies is to use multi-task learning,
 During training the ``curriculum_fn`` as defined `here <https://docs.ray.io/en/latest/rllib/rllib-advanced-api.html#curriculum-learning>`_ allows users to choose new environment at each rollout. For a tutorial on how to use it, 
 please refer to the `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section.
 
-Task Definitions (`Github <https://github.com/mit-wu-lab/IntersectionZoo/blob/main/code/env/task_context.py>`_)
+Task Definitions (`🔗 <https://github.com/mit-wu-lab/IntersectionZoo/blob/main/code/env/task_context.py>`_)
 ^^^^^^^^^^^^^^^^
 
 IntersectionZoo defines tasks using ``TaskContext`` objects. They can either represent a single task or multiple tasks. If multiple tasks are defined, 
