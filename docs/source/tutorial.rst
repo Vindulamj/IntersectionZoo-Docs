@@ -1,7 +1,7 @@
 Tutorial
 ========
 
-Multiple tutoriala are provide in ``code/`` to train and evaluate agents on the IntersectionZoo environment. A list of given tutorial examples are provided below:
+Multiple tutorials are provide in ``code/`` directory to train and evaluate agents on the IntersectionZoo environments. A list of given tutorial examples are provided below:
 
 1. ``ppo_training.py``: Training a multi-task PPO agent on the IntersectionZoo environments.
 2. ``ddpg_training.py``: Training a multi-task DDPG agent on the IntersectionZoo environments.
@@ -10,7 +10,7 @@ Multiple tutoriala are provide in ``code/`` to train and evaluate agents on the 
 5. ``policy_evaluation.py``: Evaluating a trained policy on the IntersectionZoo environments.
 
 These tutorials are designed for users to get familiar on how to use RLlib with the IntersectionZoo environment. Below, we provide a step-by-step guide on how to train 
-a PPO agent on the IntersectionZoo environment following the tutorial scrip ``ppo_training.py``.
+a PPO agent on the IntersectionZoo environment following the tutorial script ``ppo_training.py``.
 
 Training
 --------
@@ -33,9 +33,9 @@ In the example below, the task is randomly selected from the list of tasks defin
     def curriculum_fn(train_results, task_settable_env, env_ctx):
         return tasks.sample_task()
 
-Next, the environment configuration is defined. The ``IntersectionZooEnvConfig`` object is used to configure the environment. The ``working_dir`` is where the simulation files are stored during the simualtion.
+Next, the simulation configuration is defined. The ``IntersectionZooEnvConfig`` object is used to configure the simulation. The ``working_dir`` is where the simulation files are stored during the simualtion.
 It is important to provide a task for initailizing the simulations. For this, ``task_context`` is set to a randomly sampled task from the ``PathTaskContext``. 
-It will later be overriden by the curriculum function. It is however required for the env to be initialized.
+It will later be overriden by the curriculum function. 
 
 .. code-block:: python
 
@@ -67,7 +67,7 @@ The ``.callbacks(MetricsCallback)`` is necessary to send the the custom metrics 
         .build()
     )
 
-Finally, run the training for ``ITER`` iterations. The results are logged to `weights and biases <https://wandb.ai/home>`_ and the model heckpoint are saved every ``save_frequency`` iterations.
+Finally, run the training for ``ITER`` iterations. The results are logged to `weights and biases <https://wandb.ai/home>`_ and the model checkpoint are saved every ``save_frequency`` iterations.
 
 .. code-block:: python
 
@@ -97,6 +97,7 @@ For evaluating the trained agent as described above, ``policy_evaluation.py`` ca
 First the tasks on which the agent will be evaluated are defined.
 
 .. code-block:: python
+    
     tasks = PathTaskContext(
         dir=Path(PATH),
         single_approach=True,
