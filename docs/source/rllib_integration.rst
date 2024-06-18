@@ -3,20 +3,28 @@
 Rllib Integration
 =================
 
-The environment defined in this package ``IntersectionZoo`` is defined in the ``IntersectionZooEnviroment`` class. 
-To make it easy to start developping agents for it, it uses the RLlib interfaces (inheritates from ``MultiAgentEnv``). 
-You can learn more about RLlib `here <https://docs.ray.io/en/latest/rllib/index.html>`_ and Multi-agents env `here <https://docs.ray.io/en/latest/rllib/package_ref/env/multi_agent_env.html>`_.
+IntersectionZoo is by default integrated with `RLlib <https://docs.ray.io/en/latest/rllib/index.html>`_, a scalable reinforcement learning library.
 
-Multi-task
-----------
+IntersectionZooEnv (`Github <https://github.com/mit-wu-lab/IntersectionZoo/blob/main/code/env/environment.py> `_)
+------------------
 
-Another important functionnailty that the benchmarking suite offers is that the simulation can be based on multiple intersection shapes.
+The default context-MDP used in IntersectionZoo is defined in the ``IntersectionZooEnv``. 
+This class inheritates from ``MultiAgentEnv`` and ``TaskSettableEnv`` of RLLib. ``MultiAgentEnv`` is used to handle multiple agents in the environment and ``TaskSettableEnv`` is used to handle multiple tasks (traffic scenarios).
+You can learn more about ``MultiAgentEnv`` `here <https://docs.ray.io/en/latest/rllib/package_ref/env/multi_agent_env.html#rllib-env-multi-agent-env-multiagentenv>`_ and 
+``TaskSettableEnv`` `here <https://docs.ray.io/en/latest/rllib/rllib-advanced-api.html#curriculum-learning>`_.
 
-The multi-task is managed by RLlib (documented `there <https://docs.ray.io/en/latest/rllib/rllib-advanced-api.html#curriculum-learning>`_).
-The environment thus also inherits from ``TaskSettableEnv``. During training the ``curriculum_fn`` allows users to choose new environment at each rollout.
+Multi-task / Curriculum / Transfer Learning
+-------------------------------------------
 
-The tasks are defined by ``TaskContext`` objects. **They can either represent a single task or multiple of them**. If multiple, 
-one can either sample a single one uniformly at random with ``.sample()`` or list all possible single tasks exhaustively with ``.list_tasks``.
+Common approaches to learn generalizable policies is to use multi-task learning, curriculum learning or transfer learning. By inheriting from ``TaskSettableEnv``, IntersctionZoo provides flexible support for these approaches.
+During training the ``curriculum_fn`` as defined `here <https://docs.ray.io/en/latest/rllib/rllib-advanced-api.html#curriculum-learning>`_ allows users to choose new environment at each rollout. For a tutorial on how to use it, 
+please refer to the `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section.
+
+Task Definitions (`Github <https://github.com/mit-wu-lab/IntersectionZoo/blob/main/code/env/task_context.py> `_)
+^^^^^^^^^^^^^^^^
+
+IntersectionZoo defines tasks using ``TaskContext`` objects. They can either represent a single task or multiple tasks. If multiple tasks are defined, 
+one can either sample a single one uniformly at random with ``.sample()`` or list all possible single tasks exhaustively with ``.list_tasks()``.
 
 The intersection can either be real-world intersection from <TODO add cities> (TODO cite paper). They can be found in the dataset folder.
 They can also be syntetic intersections, built to simplify the training process or evalute agents on very specific situations.
