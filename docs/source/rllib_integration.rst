@@ -9,7 +9,7 @@ IntersectionZooEnv (`Class <https://github.com/mit-wu-lab/IntersectionZoo/blob/m
 ------------------
 
 The default context-MDP used in IntersectionZoo is defined in the ``IntersectionZooEnv``. 
-This class inheritates from ``MultiAgentEnv`` and ``TaskSettableEnv`` of RLLib. ``MultiAgentEnv`` is used to handle multiple agents in the environment and ``TaskSettableEnv`` is used to handle multiple tasks (traffic scenarios).
+This class inheritates from ``MultiAgentEnv`` and ``TaskSettableEnv`` of RLlib. ``MultiAgentEnv`` is used to handle multiple agents in the environment and ``TaskSettableEnv`` is used to handle multiple tasks (traffic scenarios).
 You can learn more about ``MultiAgentEnv`` `here <https://docs.ray.io/en/latest/rllib/package_ref/env/multi_agent_env.html#rllib-env-multi-agent-env-multiagentenv>`_ and 
 ``TaskSettableEnv`` `here <https://docs.ray.io/en/latest/rllib/rllib-advanced-api.html#curriculum-learning>`_.
 
@@ -42,9 +42,9 @@ Once downloaded, they should be placed in the dataset folder. Once configured, f
 Further details of these parameters can be found in the class definition. For a tutorial on how to use ``PathTaskContext``, 
 please refer to the `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section.
 
-To use syntetically generated intersections, ``NetGenTaskContext`` can be used. However, we simulate each incoming and outgoing approach pair seperately.
+To use procedurally generated intersections, ``NetGenTaskContext`` can be used. However, we simulate each incoming and outgoing approach pair seperately.
 
-``NetGenTaskContext`` define synthetic intersections with:
+``NetGenTaskContext`` define procedurally generated intersections with:
 
 - ``base_id``: number of lanes in the approach and the number of relevant traffic signal phases put together. First digit is lane number, second is phase number. Only 11, 21, 31, 41, 22, 32, 42 supported. For example 21 means 2 lanes and 1 phase (through traffic), 42 means 4 lanes and 2 phases (through and left turn traffic).
 - ``inflow``: Inflow in vehicles per hour.

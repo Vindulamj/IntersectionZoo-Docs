@@ -193,7 +193,7 @@ User Configuration
 
 In **user configuration layer**, we provide users the flexibility to configure their experimental setup. 
 
-RLLib
+RLlib
 ^^^^^
 By defualt, IntersectionZoo is intergrated with 
 `RLlib <https://docs.ray.io/en/latest/rllib/index.html>`_, a scalable reinforcement learning library that provides a unified API for testing and 

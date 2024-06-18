@@ -1,23 +1,24 @@
 Tutorial
 ========
 
-Step by step guide through the training of an RLlib PPO agent and evaluation. Please refer to ``ppo_training.py`` and ```` for all the details
+Multiple tutoriala are provide in ``code/`` to train and evaluate agents on the IntersectionZoo environment. A list of given tutorial examples are provided below:
+
+1. ``ppo_training.py``: Training a multi-task PPO agent on the IntersectionZoo environments.
+2. ``ddpg_training.py``: Training a multi-task DDPG agent on the IntersectionZoo environments.
+3. ``synthetic_ppo_training.py``: Training a multi-task PPO agent on procedurally generated environments.
+4. ``synthetic_ddpg_training.py``: Training a multi-task DDPG agent on procedurally generated environments.
+5. ``policy_evaluation.py``: Evaluating a trained policy on the IntersectionZoo environments.
+
+These tutorials are designed for users to get familiar on how to use RLlib with the IntersectionZoo environment. Below, we provide a step-by-step guide on how to train 
+a PPO agent on the IntersectionZoo environment following the tutorial scrip ``ppo_training.py``.
 
 Training
 --------
 
-.. code-block:: python
-
-    env_conf = IntersectionZooEnvConfig(
-        task_context=tasks.sample_task(),
-        working_dir=Path(args.dir),
-        moves_emissions_models=[args.temperature_humidity],
-        fleet_reward_ratio=1,
-    )
-
-Here the environment is setup. The task gien here tough does not matter because it is later overriden by the curriculum function. It is however required for the env to be initialized.
-The ``working_dir`` is where the simulation files are stored during the simualtion. Other params can be left to default.
-
+The first step is to define the tasks on which the agent will be trained. The tasks are defined in the ``PathTaskContext`` object. In the ``dir`` parameter, the path to the intersection dataset is provided. 
+The other parameters are used to configure each intersection with traffic scenario variations. For details on the parameters, please refer to the `RLlib Intergration <https://intersectionzoo-docs.readthedocs.io/en/latest/rllib_integration.html#task-definitions>`_ section.
+An important configuration needed is the ``curriculum_fn()`` function which is used to select the task on which the agent will be trained. 
+In the example below, the task is randomly selected from the list of tasks defined in the ``PathTaskContext`` object. The ``single_approach`` parameter is set to True to only simulate one approach of the intersection at a time.
 
 .. code-block:: python
     
@@ -32,10 +33,21 @@ The ``working_dir`` is where the simulation files are stored during the simualti
     def curriculum_fn(train_results, task_settable_env, env_ctx):
         return tasks.sample_task()
 
+Next, the environment configuration is defined. The ``IntersectionZooEnvConfig`` object is used to configure the environment. The ``working_dir`` is where the simulation files are stored during the simualtion.
+It is important to provide a task for initailizing the simulations. For this, ``task_context`` is set to a randomly sampled task from the ``PathTaskContext``. 
+It will later be overriden by the curriculum function. It is however required for the env to be initialized.
 
-Here a TaskContext object is first defined, which itself defines a wide number of unique tasks. The ``PATH`` is the path to a dataset.
-The ``single_approach`` parameter is set to True to only simulate one approach of the intersection at a time. It is the recommended setting as it accelerates rollouts which usually collect enough samples given the large number of agents.
-The curriculum function is later passed to RLlib to select on which task each rollout will be performed. Here we simply randomly select a task from the ones defined above.
+.. code-block:: python
+
+    env_conf = IntersectionZooEnvConfig(
+        task_context=tasks.sample_task(),
+        working_dir=Path(args.dir)
+    )
+
+
+Next, the RLlib policy is setup, in accordance with RLlib standard initialization. The ``PPOConfig`` object is used to configure the PPO policy. The ``rollouts`` method is used to configure the rollout settings.
+The ``batch_mode`` is set to ``complete_episodes`` to ensure that the rollouts are complete episodes. The evalution configurtations will not be used for training but will be required to evaluate the policy once it is trained.
+The ``.callbacks(MetricsCallback)`` is necessary to send the the custom metrics that IntersectionZoo collects to RLlib.
 
 .. code-block:: python
 
@@ -55,11 +67,7 @@ The curriculum function is later passed to RLlib to select on which task each ro
         .build()
     )
 
-Here the RLlib policy is setup, in a fairly standard way. Please note:
-- The ``sample_timeout_s`` needs to be large because the simulation can be slow.
-- The ``batch_mode`` is set to ``complete_episodes`` to ensure that the rollouts are complete episodes, and avoids issues when evaluating.
-- The evalution config will be used later when evaluating the policy.
-- The ``.callbacks(MetricsCallback)`` is necessary to collect the env's custom metrics.
+Finally, run the training for ``ITER`` iterations. The results are logged to `weights and biases <https://wandb.ai/home>`_ and the model heckpoint are saved every ``save_frequency`` iterations.
 
 .. code-block:: python
 
@@ -79,10 +87,14 @@ Here the RLlib policy is setup, in a fairly standard way. Please note:
             checkpoint_dir = algo.save(save_dir).checkpoint.path
             print(f"Checkpoint saved at {checkpoint_dir}")
 
-Runs the training for ITER iterations. The results are printed and the checkpoint are saved every ``save_frequency`` iterations.
+
 
 Evalution
 ---------
+
+For evaluating the trained agent as described above, ``policy_evaluation.py`` can be used. The evaluation script is similar to the training script, with the exception of the evaluation configurations.
+
+First the tasks on which the agent will be evaluated are defined.
 
 .. code-block:: python
     tasks = PathTaskContext(
@@ -93,7 +105,14 @@ Evalution
         electric_or_regular=REGULAR,
     )
 
-First the tasks on which the agent will be evaluated are defined. The same as in the training.
+Next, load the model checkpoint. The standard RLlib methods is used to load the model checkpoints.
+
+.. code-block:: python
+
+    algo = Algorithm.from_checkpoint(args.checkpoint)
+
+The evaluation is then performed. For every single task listed in the ``tasks`` object, EVAL_PER_TASK times, the policy will be used to do rollouts. The results will be saved in a csv file. Please note that this 
+file could be large with many columns as IntersectionZoo collected many metrics. Also note that the paramaters used by RLlib for evalution is loaded from the ``.evaluate`` call defined in the training script when the model checkpoints are loaded. 
 
 .. code-block:: python
 
@@ -115,5 +134,3 @@ First the tasks on which the agent will be evaluated are defined. The same as in
 
     res_df.to_csv(f'{args.dir}/eval_result_pen_rate_{args.penetration}.csv')
 
-The evaluation is performed here, for every single task listed in the ``tasks`` object, EVAL_PER_TASK times. The results are saved in a csv file.
-Please note that the paramater used by RLlib for the ``.evaluate`` call are the ones defined in the training script.
