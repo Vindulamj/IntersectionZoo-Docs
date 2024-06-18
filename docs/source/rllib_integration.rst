@@ -5,7 +5,7 @@ Rllib Integration
 
 IntersectionZoo is by default integrated with `RLlib <https://docs.ray.io/en/latest/rllib/index.html>`_, a scalable reinforcement learning library.
 
-IntersectionZooEnv (`🔗 <https://github.com/mit-wu-lab/IntersectionZoo/blob/main/code/env/environment.py>`_)
+IntersectionZooEnv (`Class <https://github.com/mit-wu-lab/IntersectionZoo/blob/main/code/env/environment.py>`_)
 ------------------
 
 The default context-MDP used in IntersectionZoo is defined in the ``IntersectionZooEnv``. 
@@ -16,11 +16,11 @@ You can learn more about ``MultiAgentEnv`` `here <https://docs.ray.io/en/latest/
 Multi-task / Curriculum / Transfer Learning
 -------------------------------------------
 
-Common approaches to learn generalizable policies is to use multi-task learning, curriculum learning or transfer learning. By inheriting from ``TaskSettableEnv``, IntersctionZoo provides flexible support for these approaches.
+Common approaches to learn generalizable policies are to use multi-task learning, curriculum learning or transfer learning. By inheriting from ``TaskSettableEnv``, IntersctionZoo provides flexible support for these approaches.
 During training the ``curriculum_fn`` as defined `here <https://docs.ray.io/en/latest/rllib/rllib-advanced-api.html#curriculum-learning>`_ allows users to choose new environment at each rollout. For a tutorial on how to use it, 
 please refer to the `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section.
 
-Task Definitions (`🔗 <https://github.com/mit-wu-lab/IntersectionZoo/blob/main/code/env/task_context.py>`_)
+Task Definitions (`Class <https://github.com/mit-wu-lab/IntersectionZoo/blob/main/code/env/task_context.py>`_)
 ^^^^^^^^^^^^^^^^
 
 IntersectionZoo defines tasks using ``TaskContext`` objects. They can either represent a single task or multiple tasks. If multiple tasks are defined, 
@@ -57,7 +57,7 @@ To use syntetically generated intersections, ``NetGenTaskContext`` can be used. 
 Further details of these parameters can be found in the class definition. For a tutorial on how to use ``NetGenTaskContext``, 
 please refer to the `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section.
 
-Simulation Config (`🔗 <https://github.com/mit-wu-lab/IntersectionZoo/blob/main/code/env/config.py>`_)
+Simulation Config (`Class <https://github.com/mit-wu-lab/IntersectionZoo/blob/main/code/env/config.py>`_)
 ^^^^^^^^^^^^^^^^^^
 
 ``IntersectionZooEnvConfig`` class provides many configurations that users may desired to change for their experiments. The main config settings are:
