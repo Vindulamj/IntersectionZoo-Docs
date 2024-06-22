@@ -66,5 +66,6 @@ histogram is given in Figure (d). Both DDPG and PPO fail to systematically gener
 
 For training reward curves and other metrics, please refer to `this weights and biases report <https://api.wandb.ai/links/vindula/jdyut0t3>`_. An embedded view of the weights and biases report is available below for easy reference. 
 
-.. raw:: html
-    <iframe src="https://api.wandb.ai/links/vindula/jdyut0t3" style="border:none;height:2048px;width:100%">
+.. raw:: 
+
+    <iframe src="https://api.wandb.ai/links/vindula/jdyut0t3" width="100%" height="400"></iframe>
