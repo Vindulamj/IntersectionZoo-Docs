@@ -33,7 +33,7 @@ Benchmarking Results
 
 \
 
-Above Figure denotes the performance histograms of PPO and DDPG under different evaluations. 
+The above Figure denotes the performance histograms of PPO and DDPG under different evaluations. 
 All emission benefit percentages are measured relative to the human-driving baseline. 
 For y-axis counts that are large, we truncate them for better visualization and indicate the count on the plot. The spikes at
 0% are in part due to the aforementioned zeroing of emissions benefits for any scenarios where
@@ -43,8 +43,8 @@ indicates train CMDP → test CMDP
 **In-distribution performance**: Here, we assess how well the algorithms can generalize when the training and testing context MDPs are the same. 
 For this, we leverage Salt Lake City (SLC) CMDP (282 intersections) and Atlanta CMDP (621 intersections) under summer temperature and humidity, 
 with 1/3 of vehicles being CVs. Following the IID evaluation protocol, we train and evaluate on the same CMDP. 
-The emission benefit histograms are given in Figure (a) for SLC and in (b) for Atlanta. 
-As can be seen, both PPO and DDPG fail to generalize, having many failure cases. 
+The emission benefit histograms are given in Figure (a) for SLC and (b) for Atlanta. 
+As can be seen, both PPO and DDPG fail to generalize, and there are many failure cases. 
 Failures include having higher emissions and/or lower throughput than the human-driving baseline (0\% benefits case). 
 While DDPG has a better success rate than PPO, it is still far from being successful. 
 Further, generalization performance in Atlanta is worse than in SLC for both algorithms, 
@@ -59,9 +59,11 @@ further indicating the limitations of existing RL algorithms when it comes to ge
 **Systematicity in generalization**: Systematicity is generalization using systematic recombination of known knowledge. 
 To test this ability of DDPG and PPO, we leverage IntersectionZoo's capability to procedurally generate context-MDPs. Following, 
 we first define a set of context features and their corresponding values as a set of uniform distributions (per feature). 
-Then we train policies by sampling feature values from each distribution. However, certain feature value combinations are never 
+Then, we train policies by sampling feature values from each distribution. However, certain feature value combinations are never 
 used during training. During testing, we only use the feature value combinations that were not used in training. 
 This tests the algorithms' ability to systematically combine known knowledge to generalize. The resultant performance 
 histogram is given in Figure (d). Both DDPG and PPO fail to systematically generalize; baseline performs better in almost all cases. 
 
-For training reward curves and other metrics, please refer to `this weights and biases report <https://wandb.ai/vindula/intersectionzoo/reports/IntersectionZoo-Eco-driving-for-Benchmarking-Multi-Agent-Contextual-Reinforcement-Learning--Vmlldzo4MTg1NDE3>`_. 
+For training reward curves and other metrics, please refer to `this weights and biases report <https://wandb.ai/vindula/intersectionzoo/reports/IntersectionZoo-Eco-driving-for-Benchmarking-Multi-Agent-Contextual-Reinforcement-Learning--Vmlldzo4MTg1NDE3>`_. An embedded view of the weights and biases report is available below for easy reference. 
+
+<iframe src="https://wandb.ai/vindula/intersectionzoo/reports/IntersectionZoo-Eco-driving-for-Benchmarking-Multi-Agent-Contextual-Reinforcement-Learning--Vmlldzo4MTg1NDE3" style="border:none;height:2048px;width:100%">
