@@ -15,11 +15,11 @@ or suggestions, please contact Vindula Jayawardana at vindula [AT] mit [DOT] edu
     :align: center
 
 
-Acknowledgements
+Acknowledgments
 ----------------
 
-The authors thank Blaine Lenoard, Mark Taylor, Michael Sheffield, Christopher Siavrakas, and Kelly Njord at Utah Department of Transportation 
-for their constructive feedback on eco-driving scenarios. The authors acknowledge the MIT SuperCloud and Lincoln Laboratory Supercomputing Center 
-for providing computational resources to conduct benchmarking provided with IntersectionZoo.
+We thank Blaine Lenoard, Mark Taylor, Michael Sheffield, Christopher Siavrakas, and Kelly Njord at Utah Department of Transportation 
+for their constructive feedback on eco-driving scenarios. We acknowledge the MIT SuperCloud and Lincoln Laboratory Supercomputing Center 
+for providing computational resources to conduct benchmarking provided with IntersectionZoo. The project was partially funded by the Utah Department of Transportation. 
 
 
