@@ -66,4 +66,5 @@ histogram is given in Figure (d). Both DDPG and PPO fail to systematically gener
 
 For training reward curves and other metrics, please refer to `this weights and biases report <https://wandb.ai/vindula/intersectionzoo/reports/IntersectionZoo-Eco-driving-for-Benchmarking-Multi-Agent-Contextual-Reinforcement-Learning--Vmlldzo4MTg1NDE3>`_. An embedded view of the weights and biases report is available below for easy reference. 
 
-<iframe src="https://wandb.ai/vindula/intersectionzoo/reports/IntersectionZoo-Eco-driving-for-Benchmarking-Multi-Agent-Contextual-Reinforcement-Learning--Vmlldzo4MTg1NDE3" style="border:none;height:2048px;width:100%">
+.. raw:: html
+    <iframe src="https://wandb.ai/vindula/intersectionzoo/reports/IntersectionZoo-Eco-driving-for-Benchmarking-Multi-Agent-Contextual-Reinforcement-Learning--Vmlldzo4MTg1NDE3" style="border:none;height:2048px;width:100%">
