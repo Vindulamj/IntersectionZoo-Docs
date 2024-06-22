@@ -64,7 +64,7 @@ used during training. During testing, we only use the feature value combinations
 This tests the algorithms' ability to systematically combine known knowledge to generalize. The resultant performance 
 histogram is given in Figure (d). Both DDPG and PPO fail to systematically generalize; baseline performs better in almost all cases. 
 
-For training reward curves and other metrics, please refer to `this weights and biases report <https://wandb.ai/vindula/intersectionzoo/reports/IntersectionZoo-Eco-driving-for-Benchmarking-Multi-Agent-Contextual-Reinforcement-Learning--Vmlldzo4MTg1NDE3>`_. An embedded view of the weights and biases report is available below for easy reference. 
+For training reward curves and other metrics, please refer to `this weights and biases report <https://api.wandb.ai/links/vindula/jdyut0t3>`_. An embedded view of the weights and biases report is available below for easy reference. 
 
 .. raw:: html
-    <iframe src="https://wandb.ai/vindula/intersectionzoo/reports/IntersectionZoo-Eco-driving-for-Benchmarking-Multi-Agent-Contextual-Reinforcement-Learning--Vmlldzo4MTg1NDE3" style="border:none;height:2048px;width:100%">
+    <iframe src="https://api.wandb.ai/links/vindula/jdyut0t3" style="border:none;height:2048px;width:100%">
