@@ -96,10 +96,14 @@ Intersection Feature Distribution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-In the following figure, we show the distribution of the intersection features across the 10 cities. 
+In the following figures, we show the intersection distribution of each city and the distributions of intersection features of each city. 
 The full dataset of 16,334 intersections in compliance with SUMO simulator can be found in the `here <https://drive.google.com/drive/folders/1y3W83MPfnt9mSFGbg8L9TLHTXElXvcHs?usp=sharing>`_. 
 To be used with the IntersectionZoo, the dataset should be placed in the `dataset` folder.
 
+.. image:: image/maps.png
+    :alt: City plots
+    :scale: 42%
+    :align: center
 
 .. image:: image/city_features_summary.png
     :alt: City feature summary
