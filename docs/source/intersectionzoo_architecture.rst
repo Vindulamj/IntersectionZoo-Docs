@@ -102,7 +102,7 @@ To be used with the IntersectionZoo, the dataset should be placed in the `datase
 
 .. image:: image/maps.png
     :alt: City plots
-    :scale: 42%
+    :scale: 50%
     :align: center
 
 .. image:: image/city_features_summary.png
