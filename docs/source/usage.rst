@@ -8,13 +8,14 @@ Installation
 
 1. Install `SUMO <https://sumo.dlr.de/docs/Installing/index.html>`_  (we have tested IntersectionZoo with SUMO 1.12), and make sure that the environment variable ``SUMO_HOME`` is set as per the SUMO installation instructions.
 2. Create and activate `conda <https://docs.conda.io/en/latest>`_ environment or `venv <https://docs.python.org/3/library/venv.html>`_ with python 3.10. 
-3. We use `Weights and Biases <https://wandb.ai/>`` for logging. Create a free account on `Weights and Biases <https://wandb.ai/>`_ and `confgire your terminal <https://docs.wandb.ai/quickstart>`.
+3. We use `Weights and Biases <https://wandb.ai/>`_ for logging. Create a free account on `Weights and Biases <https://wandb.ai/>`_ and `confgire your terminal <https://docs.wandb.ai/quickstart>`_.
 4. Clone the IntersectionZoo `repository <https://github.com/mit-wu-lab/IntersectionZoo/>`_ and from the root of the repo, install the dependencies using the following command.
-5. By defualt we use ray[rllib]==2.11.0 for training. Some popular RL algorithms like DDPG have been moved to `RLlib contrib <https://github.com/ray-project/ray/tree/master/rllib_contrib>`. If you want to use these algorithms, please follow the instructions listed `here <https://github.com/ray-project/ray/tree/master/rllib_contrib>` for individual algorithms.
 
 .. code-block:: console
 
    pip install -r requirements.txt
+
+5. By defualt we use ray[rllib]==2.11.0 for training. Some popular RL algorithms like DDPG have been moved to `RLlib contrib <https://github.com/ray-project/ray/tree/master/rllib_contrib>`_. If you want to use these algorithms, please follow the instructions listed `here <https://github.com/ray-project/ray/tree/master/rllib_contrib>`_ for individual algorithms.
 
 Runnig IntersectionZoo
 -----------------------
