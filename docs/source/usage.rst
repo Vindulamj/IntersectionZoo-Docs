@@ -8,7 +8,7 @@ Installation
 
 1. Install `SUMO <https://sumo.dlr.de/docs/Installing/index.html>`_  (we have tested IntersectionZoo with SUMO 1.12), and make sure that the environment variable ``SUMO_HOME`` is set as per the SUMO installation instructions.
 2. Create and activate `conda <https://docs.conda.io/en/latest>`_ environment or `venv <https://docs.python.org/3/library/venv.html>`_ with python 3.10. 
-3. We use `Weights and Biases <https://wandb.ai/>`_ for logging. Create a free account on `Weights and Biases <https://wandb.ai/>`_ and `confgire your terminal <https://docs.wandb.ai/quickstart>`_.
+3. We use `Weights and Biases <https://wandb.ai/>`_ for logging. Create a free account on `Weights and Biases <https://wandb.ai/>`_ and `configure your terminal <https://docs.wandb.ai/quickstart>`_.
 4. Clone the IntersectionZoo `repository <https://github.com/mit-wu-lab/IntersectionZoo/>`_ and from the root of the repo, install the dependencies using the following command.
 
 .. code-block:: console
@@ -20,7 +20,7 @@ Installation
 Runnig IntersectionZoo
 -----------------------
 
-To undertand how an enviroment simulations work, we provide a simple simulation loop. To run and visualize the simualtion, use the following command from the root of IntersectionZoo repository. Note that this will not start any training but will only run a single simulation with pre-define constant accelerarion for each vehicle.
+To undertand how IntersectionZoo enviroment simulations work, we provide a simple simulation loop. To run and visualize the simualtion, use the following command from the root of IntersectionZoo repository. Note that this will not start any training but will only run a single simulation with pre-define constant accelerarion for each vehicle.
 
 .. code-block:: console
 
