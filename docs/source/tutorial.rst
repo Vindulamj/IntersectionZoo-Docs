@@ -8,9 +8,10 @@ Multiple tutorials are provide in ``code/`` directory to train and evaluate agen
 3. ``synthetic_ppo_training.py``: Training a multi-task PPO agent on procedurally generated environments.
 4. ``synthetic_ddpg_training.py``: Training a multi-task DDPG agent on procedurally generated environments.
 5. ``policy_evaluation.py``: Evaluating a trained policy on the IntersectionZoo environments.
+6. ``env_demo.py``: Running a single simulation of the IntersectionZoo environment without any training. Good to understand how the environment works.
 
 These tutorials are designed for users to get familiar on how to use RLlib with the IntersectionZoo environment. Below, we provide a step-by-step guide on how to train 
-a PPO agent on the IntersectionZoo environment following the tutorial script ``ppo_training.py``.
+a PPO agent on the IntersectionZoo environment following the tutorial script ``ppo_training.py``. If you want to familiarize with how the environment works, you can run the ``env_demo.py`` script.
 
 Training
 --------
@@ -88,7 +89,7 @@ Finally, run the training for ``ITER`` iterations. The results are logged to `we
             print(f"Checkpoint saved at {checkpoint_dir}")
 
 
-
+While, here we discuss the use of RLlib for training the agents, IntersectionZoo also supports user-defined implementations of the RL algorithms. We provide `env_demo.py` as an example of how to run a single simulation of the IntersectionZoo environment without any training. Intereted users can use this script to understand how the environment works and intergrate their custom RL algorithms.
 Evalution
 ---------
 
