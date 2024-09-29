@@ -90,6 +90,7 @@ Finally, run the training for ``ITER`` iterations. The results are logged to `we
 
 
 While, here we discuss the use of RLlib for training the agents, IntersectionZoo also supports user-defined implementations of the RL algorithms. We provide `env_demo.py` as an example of how to run a single simulation of the IntersectionZoo environment without any training. Intereted users can use this script to understand how the environment works and intergrate their custom RL algorithms.
+
 Evalution
 ---------
 
