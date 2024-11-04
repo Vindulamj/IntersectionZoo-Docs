@@ -1,7 +1,7 @@
 Tutorial
 ========
 
-Multiple tutorials are provide in ``code/`` directory to train and evaluate agents on the IntersectionZoo environments. A list of given tutorial examples are provided below:
+Multiple tutorials are provided in the ``code/`` directory to train and evaluate agents on the IntersectionZoo environments. A list of tutorial examples is provided below:
 
 1. ``ppo_training.py``: Training a multi-task PPO agent on the IntersectionZoo environments.
 2. ``ddpg_training.py``: Training a multi-task DDPG agent on the IntersectionZoo environments.
@@ -10,14 +10,14 @@ Multiple tutorials are provide in ``code/`` directory to train and evaluate agen
 5. ``policy_evaluation.py``: Evaluating a trained policy on the IntersectionZoo environments.
 6. ``env_demo.py``: Running a single simulation of the IntersectionZoo environment without any training. Good to understand how the environment works.
 
-These tutorials are designed for users to get familiar on how to use RLlib with the IntersectionZoo environment. Below, we provide a step-by-step guide on how to train 
+These tutorials are designed to familiarize users with how to use RLlib in the IntersectionZoo environment. Below, we provide a step-by-step guide on how to train 
 a PPO agent on the IntersectionZoo environment following the tutorial script ``ppo_training.py``. If you want to familiarize with how the environment works, you can run the ``env_demo.py`` script.
 
 Training
 --------
 
 The first step is to define the tasks on which the agent will be trained. The tasks are defined in the ``PathTaskContext`` object. In the ``dir`` parameter, the path to the intersection dataset is provided. 
-The other parameters are used to configure each intersection with traffic scenario variations. For details on the parameters, please refer to the `RLlib Intergration <https://intersectionzoo-docs.readthedocs.io/en/latest/rllib_integration.html#task-definitions>`_ section.
+The other parameters are used to configure each intersection with traffic scenario variations. For details on the parameters, please refer to the `RLlib Integration <https://intersectionzoo-docs.readthedocs.io/en/latest/rllib_integration.html#task-definitions>`_ section.
 An important configuration needed is the ``curriculum_fn()`` function which is used to select the task on which the agent will be trained. 
 In the example below, the task is randomly selected from the list of tasks defined in the ``PathTaskContext`` object. The ``single_approach`` parameter is set to True to only simulate one approach of the intersection at a time.
 
@@ -34,9 +34,9 @@ In the example below, the task is randomly selected from the list of tasks defin
     def curriculum_fn(train_results, task_settable_env, env_ctx):
         return tasks.sample_task()
 
-Next, the simulation configuration is defined. The ``IntersectionZooEnvConfig`` object is used to configure the simulation. The ``working_dir`` is where the simulation files are stored during the simualtion.
-It is important to provide a task for initailizing the simulations. For this, ``task_context`` is set to a randomly sampled task from the ``PathTaskContext``. 
-It will later be overriden by the curriculum function. 
+Next, the simulation configuration is defined. The ``IntersectionZooEnvConfig`` object is used to configure the simulation. The ``working_dir`` is where the simulation files are stored during the simulation.
+It is important to provide a task for initializing the simulations. For this, ``task_context`` is set to a randomly sampled task from the ``PathTaskContext``. 
+It will later be overridden by the curriculum function. 
 
 .. code-block:: python
 
@@ -46,9 +46,9 @@ It will later be overriden by the curriculum function.
     )
 
 
-Next, the RLlib policy is setup, in accordance with RLlib standard initialization. The ``PPOConfig`` object is used to configure the PPO policy. The ``rollouts`` method is used to configure the rollout settings.
-The ``batch_mode`` is set to ``complete_episodes`` to ensure that the rollouts are complete episodes. The evalution configurtations will not be used for training but will be required to evaluate the policy once it is trained.
-The ``.callbacks(MetricsCallback)`` is necessary to send the the custom metrics that IntersectionZoo collects to RLlib.
+Next, the RLlib policy is set up in accordance with RLlib standard initialization. The ``PPOConfig`` object is used to configure the PPO policy. The ``rollouts`` method is used to configure the rollout settings.
+The ``batch_mode`` is set to ``complete_episodes`` to ensure that the rollouts are complete episodes. The evaluation configurations will not be used for training but will be required to evaluate the policy once it is trained.
+The ``.callbacks(MetricsCallback)`` is necessary to send the custom metrics that IntersectionZoo collects to RLlib.
 
 .. code-block:: python
 
@@ -68,7 +68,7 @@ The ``.callbacks(MetricsCallback)`` is necessary to send the the custom metrics 
         .build()
     )
 
-Finally, run the training for ``ITER`` iterations. The results are logged to `weights and biases <https://wandb.ai/home>`_ and the model checkpoint are saved every ``save_frequency`` iterations.
+Finally, run the training for ``ITER`` iterations. The results are logged to `weights and biases <https://wandb.ai/home>`_, and the model checkpoint is saved every ``save_frequency``iteration.
 
 .. code-block:: python
 
@@ -89,14 +89,14 @@ Finally, run the training for ``ITER`` iterations. The results are logged to `we
             print(f"Checkpoint saved at {checkpoint_dir}")
 
 
-While, here we discuss the use of RLlib for training the agents, IntersectionZoo also supports user-defined implementations of the RL algorithms. We provide `env_demo.py` as an example of how to run a single simulation of the IntersectionZoo environment without any training. Intereted users can use this script to understand how the environment works and intergrate their custom RL algorithms.
+While, here, we discuss the use of RLlib for training the agents, IntersectionZoo also supports user-defined implementations of the RL algorithms. We provide `env_demo.py` as an example of how to run a single simulation of the IntersectionZoo environment without any training. Interested users can use this script to understand how the environment works and integrate their custom RL algorithms.
 
-Evalution
+Evaluation
 ---------
 
 For evaluating the trained agent as described above, ``policy_evaluation.py`` can be used. The evaluation script is similar to the training script, with the exception of the evaluation configurations.
 
-First the tasks on which the agent will be evaluated are defined.
+First, the tasks on which the agent will be evaluated are defined.
 
 .. code-block:: python
     
@@ -108,14 +108,14 @@ First the tasks on which the agent will be evaluated are defined.
         electric_or_regular=REGULAR,
     )
 
-Next, load the model checkpoint. The standard RLlib methods is used to load the model checkpoints.
+Next, load the model checkpoint. The standard RLlib method is used to load the model checkpoints.
 
 .. code-block:: python
 
     algo = Algorithm.from_checkpoint(args.checkpoint)
 
 The evaluation is then performed. For every single task listed in the ``tasks`` object, EVAL_PER_TASK times, the policy will be used to do rollouts. The results will be saved in a csv file. Please note that this 
-file could be large with many columns as IntersectionZoo collected many metrics. Also note that the paramaters used by RLlib for evalution is loaded from the ``.evaluate`` call defined in the training script when the model checkpoints are loaded. 
+file could be large with many columns as IntersectionZoo collected many metrics. Also, note that the parameters used by RLlib for evaluation are loaded from the ``.evaluate`` call defined in the training script when the model checkpoints are loaded. 
 
 .. code-block:: python
 
@@ -136,4 +136,6 @@ file could be large with many columns as IntersectionZoo collected many metrics.
         print(f'Completed evaluation for task {i+1}/{len(tasks.list_tasks(False))}')
 
     res_df.to_csv(f'{args.dir}/eval_result_pen_rate_{args.penetration}.csv')
+
+IntersectionZoo uses SUMO microscopic traffic simulator for simulations. In policy_evaluation.py, set the visualize=True to enable sumo GUI visualization during evaluations. This will pop up a GUI window with the given intersection environment loaded. While one can set the same flag for training to visualize the agent performance during training, we do not recommend this option as it will slow down the training and can consume memory and slow down training speed as we use multiple processes for training. 
 
