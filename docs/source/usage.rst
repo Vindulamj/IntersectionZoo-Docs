@@ -20,14 +20,14 @@ Installation
 Runnig IntersectionZoo
 -----------------------
 
-To undertand how IntersectionZoo enviroment simulations work, we provide a simple simulation loop. To run and visualize the simualtion, use the following command from the root of IntersectionZoo repository. Note that this will not start any training but will only run a single simulation with pre-define constant accelerarion for each vehicle.
+To understand how IntersectionZoo environment simulations work, we provide a simple simulation loop. To run and visualize the simulation, use the following command from the root of the IntersectionZoo repository. Note that this will not start any training but will only run a single simulation with pre-define constant acceleration for each vehicle.
 
 .. code-block:: console
 
    python code/env_demo.py
 
 Run the following command to train an example multi-task PPO agent on Salt Lake City intersections. 
-Check `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section for more details on training configurations inclduing how to change the intersection dataset.
+Check the `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section for more details on training configurations, including how to change the intersection dataset.
 
 .. code-block:: console
 
@@ -36,7 +36,7 @@ Check `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial
 Here, ``<exp_dir>`` is where all the training artifacts will be stored and/or the checkpoints will be retrieved (to evaluate or restart the training).
 It will be created if it doesn't exist.
 
-To override the default configurations, pass a python dictionary with the arguments to override the config in ppo_training.py.
+To override the default configurations, pass a Python dictionary with the arguments for overriding the configuration in ppo_training.py.
 
 .. code-block:: console
 
@@ -44,16 +44,12 @@ To override the default configurations, pass a python dictionary with the argume
 
 
 Similarly, to evaluate a trained agent on Salt Lake City intersections, run the following command. ``<exp_dir>`` should point to a directory where all training artifacts are stored for the checkpoints to be retrieved.
-Check `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section for more details on evaluation configurations inclduing how to change the intersection dataset.
+Check the `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section for more details on evaluation configurations including how to change the intersection dataset.
 
 .. code-block:: console
 
    python code/policy_evaluation.py --dir <exp_dir>
 
 
-IntersectionZoo uses SUMO microscopic traffic simualator for simualtions. Run the following command to visulize the trained agents on a given intersection dataset with SUMO GUI. 
-Check `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section for more details on evaluation configurations inclduing how to change the intersection dataset.
-
-.. code-block:: console
-
-   python code/visualize.py --dir <exp_dir>
+IntersectionZoo uses SUMO microscopic traffic simulator for simulations. In ``policy_evaluation.py``, set the ``visualize=True`` to enable sumo GUI visualization during evaluations. This will pop up a GUI window with the given intersection environment loaded. While one can set the same flag for training to visualize the agent performance during training, we do not recommend this option as it will slow down the training and can consume memory and processing speed as we use multiple processes for training. 
+Check the `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section for more details on evaluation configurations, including how to change the intersection dataset.
