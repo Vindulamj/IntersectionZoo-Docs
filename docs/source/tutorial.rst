@@ -137,5 +137,5 @@ file could be large with many columns as IntersectionZoo collected many metrics.
 
     res_df.to_csv(f'{args.dir}/eval_result_pen_rate_{args.penetration}.csv')
 
-IntersectionZoo uses SUMO microscopic traffic simulator for simulations. In policy_evaluation.py, set the visualize=True to enable sumo GUI visualization during evaluations. This will pop up a GUI window with the given intersection environment loaded. While one can set the same flag for training to visualize the agent performance during training, we do not recommend this option as it will slow down the training and can consume memory and slow down training speed as we use multiple processes for training. 
+IntersectionZoo uses SUMO microscopic traffic simulator for simulations. In policy_evaluation.py, set the visualize=True to enable sumo GUI visualization during evaluations. This will pop up a GUI window with the given intersection environment loaded. While one can set the same flag for training to visualize the agent performance during training, we do not recommend this option as it will slow down the training and can consume memory and slow down training as we use multiple processes for training. 
 
