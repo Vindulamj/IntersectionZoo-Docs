@@ -51,5 +51,5 @@ Check the `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tuto
    python code/policy_evaluation.py --dir <exp_dir>
 
 
-IntersectionZoo uses SUMO microscopic traffic simulator for simulations. In ``policy_evaluation.py``, set the ``visualize=True`` to enable sumo GUI visualization during evaluations. This will pop up a GUI window with the given intersection environment loaded. While one can set the same flag for training to visualize the agent performance during training, we do not recommend this option as it will slow down the training and can consume memory and processing speed as we use multiple processes for training. 
+IntersectionZoo uses SUMO microscopic traffic simulator for simulations. In ``policy_evaluation.py``, set the ``visualize=True`` to enable sumo GUI visualization during evaluations. This will pop up a GUI window with the given intersection environment loaded. While one can set the same flag for training to visualize the agent performance during training, we do not recommend this option as it will slow down the training and can consume memory and slow down training as we use multiple processes for training. 
 Check the `Tutorials <https://intersectionzoo-docs.readthedocs.io/en/latest/tutorial.html>`_ section for more details on evaluation configurations, including how to change the intersection dataset.
