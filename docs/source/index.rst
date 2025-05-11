@@ -38,10 +38,6 @@ If you use IntersectionZoo in your work, you are highly encouraged to cite our p
 
 V. Jayawardana, B. Freydt, A. Qu, C. Hickert, Z. Yan, C. Wu, "IntersectionZoo: Eco-driving for Benchmarking Multi-Agent Contextual Reinforcement Learning", International Conference on Learning Representations (ICLR) 2025.
 
-.. note::
-
-   This paper is under review. We will update the citation information once the paper is published.
-
 License
 -------
 
