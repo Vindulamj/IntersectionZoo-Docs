@@ -17,7 +17,7 @@ Installation
 
 5. By defualt we use ray[rllib]==2.11.0 for training. Some popular RL algorithms like DDPG have been moved to `RLlib contrib <https://github.com/ray-project/ray/tree/master/rllib_contrib>`_. If you want to use these algorithms, please follow the instructions listed `here <https://github.com/ray-project/ray/tree/master/rllib_contrib>`_ for individual algorithms.
 
-Runnig IntersectionZoo
+Running IntersectionZoo
 -----------------------
 
 To understand how IntersectionZoo environment simulations work, we provide a simple simulation loop. To run and visualize the simulation, use the following command from the root of the IntersectionZoo repository. Note that this will not start any training but will only run a single simulation with pre-define constant acceleration for each vehicle.
