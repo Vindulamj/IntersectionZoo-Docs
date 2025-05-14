@@ -36,7 +36,7 @@ Publications and Citation
 
 If you use IntersectionZoo in your work, you are highly encouraged to cite our paper:
 
-V. Jayawardana, B. Freydt, A. Qu, C. Hickert, Z. Yan, C. Wu, `IntersectionZoo: Eco-driving for Benchmarking Multi-Agent Contextual Reinforcement Learning <https://openreview.net/forum?id=XoulHHQGFi&referrer=%5Bthe%20profile%20of%20Vindula%20Jayawardana%5D(%2Fprofile%3Fid%3D~Vindula_Jayawardana1)>`_, International Conference on Learning Representations (ICLR) 2025.
+V. Jayawardana, B. Freydt, A. Qu, C. Hickert, Z. Yan, C. Wu, `IntersectionZoo: Eco-driving for Benchmarking Multi-Agent Contextual Reinforcement Learning <https://openreview.net/forum?id=XoulHHQGFi>`_, International Conference on Learning Representations (ICLR) 2025.
 
 License
 -------
